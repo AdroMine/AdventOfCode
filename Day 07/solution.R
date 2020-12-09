@@ -27,6 +27,7 @@ ans2 <- function(bag_col){
     inside <- bags_list[[bag_col]]
     sum(map2_dbl(as.numeric(inside), names(inside), 
                  function(x,y) x * (1 + ans2(y)) ))
+    # count bag and the items inside
 }
     
 ans2('shiny gold')    

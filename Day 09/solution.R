@@ -8,8 +8,6 @@ input <- as.numeric(readLines("input.txt"))
 
 for(i in 26:length(input)){
     preamble <- input[(i-25):(i-1)]
-    if(sum(Rfast::nth(preamble, 2, descending = TRUE), max(preamble)) < input[i])
-        break
     if( !any(colSums(comb_n(preamble, 2)) == input[i]) )
         break
 }
@@ -18,8 +16,7 @@ for(i in 26:length(input)){
 print(n <- input[i])
 
 # Answer 2
-input2 <- input[-i]
-input2 <- input2[input2 < n]
+input2 <- input[1:(i-1)]
 
 all_contiguous_sums <- data.table::frollsum(input2, 2:(length(input2)-1))
 sum_in <- which(map_lgl(all_contiguous_sums, ~any(. == n)))

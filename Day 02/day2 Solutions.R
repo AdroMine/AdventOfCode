@@ -2,7 +2,7 @@ library(dplyr)
 library(tidyr)
 library(stringi)
 
-setwd("D:/RData/AdventOfCode/Day 02/")
+setwd(dirname(rstudioapi::getActiveDocumentContext()$path))
 
 input <- read.table("input.txt", sep = " ")
 
