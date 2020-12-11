@@ -7,20 +7,14 @@ input <- readLines("input.txt")
 
 # convert to matrix of 1(fill) , 0(empty) and NA(floor)
 parse_input <- function(input){
-    seats <- unlist(strsplit(input, ""))
-    seats[seats == "L"] <- 0
-    seats[seats == "#"] <- 1
-    seats[seats == "."] <- NA
-    
+    seats <- unlist(strsplit(chartr("L#", "01", input), ""))
     seats <- matrix(as.integer(seats), 
                     nrow = length(input), 
                     ncol = nchar(input[1]), 
                     byrow = TRUE)
-    
-    left_pad <- rep(NA, dim(seats)[1])
-    top_pad <- rep(NA, dim(seats)[2]+2)
-    seats <- cbind(left_pad, seats, left_pad)
-    seats <- rbind(top_pad, seats, top_pad)
+    # Pad around
+    seats <- cbind(NA_integer_, seats, NA_integer_)
+    seats <- rbind(NA_integer_, seats, NA_integer_)
     
     dimnames(seats) <- NULL
     seats
