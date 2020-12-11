@@ -63,15 +63,18 @@ order_seats <- function(seats, p1 = TRUE){
                 d1 <- min(i,j)
                 d2 <- min(R-i+1, j)
                 
-                empty <- list(tail(na.omit(seats[i,1:(j-1)]),1) == 1,      # left  adjacent
-                              head(na.omit(seats[i,-(1:j)]), 1) == 1,      # right adjacent
-                              tail(na.omit(seats[1:(i-1),j]), 1) == 1,     # up    adjacent
-                              head(na.omit(seats[-(1:i),j]), 1) == 1,      # down  adjacent
-                              tail(na.omit( diag1[1:(d1-1) ] ), 1) == 1,   # nw    adjacent
-                              head(na.omit( diag1[ -(1:d1) ] ), 1) == 1,   # se    adjacent
-                              tail(na.omit( diag2[  1:(d2-1)] ), 1) == 1,  # sw    adjacent
-                              head(na.omit( diag2[-(1:d2)   ] ), 1) == 1)  # ne    adjacent
-                empty <- map_lgl(empty, ~ifelse(is_empty(.), FALSE, .))    # if no seats in either direcrtion
+                empty <- c(tail( na.omit( seats[i,1:(j-1) ] ), 1) == 1,      # left  adjacent
+                           head( na.omit( seats[i,-(1:j)  ] ), 1) == 1,      # right adjacent
+                           tail( na.omit( seats[1:(i-1),j ] ), 1) == 1,      # up    adjacent
+                           head( na.omit( seats[-(1:i),j  ] ), 1) == 1,      # down  adjacent
+                           tail( na.omit( diag1[1:(d1-1)  ] ), 1) == 1,      # nw    adjacent
+                           head( na.omit( diag1[ -(1:d1)  ] ), 1) == 1,      # se    adjacent
+                           tail( na.omit( diag2[  1:(d2-1)] ), 1) == 1,      # sw    adjacent
+                           head( na.omit( diag2[-(1:d2)   ] ), 1) == 1)      # ne    adjacent
+                
+                # empty <- sapply(empty, function(x) ifelse(length(x)==0, FALSE, x))    # if no seats in either direcrtion
+                # empty <- map_dbl(empty, as.integer)    # if no seats in either direcrtion
+                
                 adj_sts <- sum(empty, na.rm = TRUE)
             }
             if(seat == 0 && adj_sts == 0){
