@@ -12,7 +12,7 @@ parse_input <- function(input){
     seats[seats == "#"] <- 1
     seats[seats == "."] <- NA
     
-    seats <- matrix(as.numeric(seats), 
+    seats <- matrix(as.integer(seats), 
                     nrow = length(input), 
                     ncol = nchar(input[1]), 
                     byrow = TRUE)
@@ -33,6 +33,7 @@ R <- nrow(seats)
 C <- ncol(seats)
 left_diags <- row(seats) - col(seats)
 right_diags <- row(seats) + col(seats)
+not_na <- function(x) !is.na(x)
 
 # Function to order seats
 order_seats <- function(seats, p1 = TRUE){
@@ -62,19 +63,29 @@ order_seats <- function(seats, p1 = TRUE){
                 
                 d1 <- min(i,j)
                 d2 <- min(R-i+1, j)
+                row <- seats[i,]
+                col <- seats[,j]
+                # idx
+                left <- 1:(j-1)
+                right <- -(1:j)
+                up <- 1:(i-1)
+                down <- -(1:i)
+                nw <- 1:(d1-1)
+                se <- -(1:d1)
+                sw <- 1:(d2-1)
+                ne <- -(1:d2)
                 
-                empty <- c(tail( na.omit( seats[i,1:(j-1) ] ), 1) == 1,      # left  adjacent
-                           head( na.omit( seats[i,-(1:j)  ] ), 1) == 1,      # right adjacent
-                           tail( na.omit( seats[1:(i-1),j ] ), 1) == 1,      # up    adjacent
-                           head( na.omit( seats[-(1:i),j  ] ), 1) == 1,      # down  adjacent
-                           tail( na.omit( diag1[1:(d1-1)  ] ), 1) == 1,      # nw    adjacent
-                           head( na.omit( diag1[ -(1:d1)  ] ), 1) == 1,      # se    adjacent
-                           tail( na.omit( diag2[  1:(d2-1)] ), 1) == 1,      # sw    adjacent
-                           head( na.omit( diag2[-(1:d2)   ] ), 1) == 1)      # ne    adjacent
                 
-                # empty <- sapply(empty, function(x) ifelse(length(x)==0, FALSE, x))    # if no seats in either direcrtion
-                # empty <- map_dbl(empty, as.integer)    # if no seats in either direcrtion
-                
+                empty <- c(
+                    row[left][Position(not_na, row[left],right = TRUE)],      # left  adjacent
+                    row[right] [Position(not_na, row[right],right = FALSE)],  # right adjacent
+                    col[up][Position(not_na, col[up],right = TRUE)],          # up    adjacent
+                    col[down]  [Position(not_na, col[down], right =FALSE) ],  # down  adjacent
+                    diag1[nw][Position(not_na, diag1[nw],TRUE)],     # nw    adjacent
+                    diag1[se][Position(not_na, diag1[se])],          # se    adjacent
+                    diag2[sw][Position(not_na, diag2[sw],TRUE)],     # sw    adjacent
+                    diag2[ne][Position(not_na, diag2[ne] )]          # ne    adjacent
+                )
                 adj_sts <- sum(empty, na.rm = TRUE)
             }
             if(seat == 0 && adj_sts == 0){
