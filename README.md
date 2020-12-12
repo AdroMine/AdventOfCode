@@ -16,4 +16,5 @@ Trying to do all questions in R, using vectorisation as far as possible.
 - Day 09 [Readme](./Day%2009/day%209%20readme.md) - [Solution](./Day%2009/solution.R)
 - Day 10 [Readme](./Day10/day_10_readme.md) - [Solution](./Day10/solution.R)
 - Day 11 [Readme](./Day110/day_11_readme.md) - [Solution](./Day11/solution.R)
+- Day 11 [Readme](./Day110/day_12_readme.md) - [Solution](./Day12/solution.R)
 
