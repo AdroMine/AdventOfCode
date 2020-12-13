@@ -1,4 +1,4 @@
-# Day 12: Rain Risk - [Link](https://adventofcode.com/2020/day/11)
+# Day 12: Rain Risk - [Link](https://adventofcode.com/2020/day/12)
 
 ### Question Summary
 Instructions to move ship and ship/waypoint. Direction plus number given, move or rotate.
