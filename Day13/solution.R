@@ -25,7 +25,7 @@ part2 <- function(buses){
     .N <- function(.) mpfr(., precBits = 200)    
     N <- .N(prod(buses))
     Y <- N/buses
-    rem <- -dept
+    rem <- (-dept) %% buses
     inv <- rep(NA, length(buses))
     
     # inverse modulo
