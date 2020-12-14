@@ -3,6 +3,7 @@ setwd(dirname(rstudioapi::getActiveDocumentContext()$path))
 library(stringr)
 library(assertthat)
 library(memoise)
+library(data.table)
 input <- readLines("input.txt")
 
 # convert number to binary and return as char vector
@@ -68,8 +69,9 @@ genaddr_mem <- memoise::memoise(genaddr)
 
 memory <- vector('character', 1e6)
 values <- vector('numeric', 1e6)
+tmp <- data.table(memory, values)
 
-i <- 1
+i <- 1L
 for(line in input){
   if(startsWith(line, "mask")){
     mask <- strsplit(str_sub(line, 8), "")[[1]]
@@ -85,9 +87,12 @@ for(line in input){
     memory_addresses <- genaddr_mem(paste(addr, collapse = ""))
     new_vals <- length(memory_addresses)
     
-    values[i : (i + new_vals - 1)] <- val
-    memory[i : (i + new_vals - 1)] <- memory_addresses
+    set(tmp, i : (i + new_vals - 1), j = 1L, memory_addresses)
+    set(tmp, i : (i + new_vals - 1), j = 2L, val)
     i <- i + new_vals
+
+    # values[i : (i + new_vals - 1)] <- val
+    # memory[i : (i + new_vals - 1)] <- memory_addresses
     # present <- memory_addresses %in% names(memory)
     
     # new_names <- sum(!present)
@@ -107,6 +112,5 @@ for(line in input){
   }
 }
 
-tmp <- data.table::data.table(values, memory)
 sum(tmp[, .SD[.N], by = memory]$values)
 
