@@ -66,8 +66,11 @@ genaddr <- function(mask){
 # memoised version
 genaddr_mem <- memoise::memoise(genaddr)
 
-memory <- list()
-for(line in input[1:100]){
+memory <- vector('character', 1e6)
+values <- vector('numeric', 1e6)
+
+i <- 1
+for(line in input){
   if(startsWith(line, "mask")){
     mask <- strsplit(str_sub(line, 8), "")[[1]]
     idx <- which(mask!="0")
@@ -80,13 +83,30 @@ for(line in input[1:100]){
     # memory address decoding
     addr[idx] <- mask[idx]
     memory_addresses <- genaddr_mem(paste(addr, collapse = ""))
+    new_vals <- length(memory_addresses)
     
-    val_list <- setNames(
-      as.list(rep(val, length(memory_addresses))), 
-      memory_addresses
-    )
-    memory <- modifyList(memory, val_list)
+    values[i : (i + new_vals - 1)] <- val
+    memory[i : (i + new_vals - 1)] <- memory_addresses
+    i <- i + new_vals
+    # present <- memory_addresses %in% names(memory)
+    
+    # new_names <- sum(!present)
+    # if(any(!present)){
+    #   names(memory)[ i : (i + new_names - 1)] <- memory_addresses[!present]
+    #   i <- i + sum(!present)
+    # }
+    # 
+    # memory[memory_addresses] <- val
+    
+    # val_list <- setNames(
+    #   as.list(rep(val, length(memory_addresses))), 
+    #   memory_addresses
+    # )
+    # memory <- modifyList(memory, val_list)
+
   }
 }
-sum(unlist(memory[!is.na(memory)]))
+
+tmp <- data.table::data.table(values, memory)
+sum(tmp[, .SD[.N], by = memory]$values)
 
