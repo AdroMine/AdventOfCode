@@ -5,22 +5,17 @@ find_n_num <- function(starting_nums, n){
     last_seen <- rep(0L, n)
     
     # 0 saved at 1
-    last_seen[starting_nums[-s] + 1L] <- 1L:(s-1)
+    last_seen[starting_nums[-s] + 1L] <- 1L:(s-1L)
     
     num <- starting_nums[s] 
-    for(turn in (s+1):n){
-        # if(turn %% 100000L == 0L)
-        # print(turn)
-        
-        # seen before?
-        if(last_seen[num+1L]){ # yes
-            tmp <- num
+    for(turn in (s+1L):n){
+        tmp <- num
+        if(last_seen[num+1L]!=0L){ 
             num <- turn - 1L - last_seen[num + 1L]
-            last_seen[tmp + 1L] <- turn - 1L
-        } else{                     # yes
-            last_seen[num + 1L] <- turn - 1L
+        } else{                
             num <- 0L
         }
+        last_seen[tmp + 1L] <- turn - 1L
     }
     num
 }

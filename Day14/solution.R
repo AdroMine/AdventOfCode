@@ -77,7 +77,6 @@ for(line in input){
     mask <- strsplit(str_sub(line, 8), "")[[1]]
     idx <- which(mask!="0")
   } else {
-    # message(line)
     add_val <- str_match(line, "^mem\\[(\\d+)\\] = (\\d+)")
     val <- as.integer(add_val[3])
     addr <- to_bit(as.integer(add_val[2]))
@@ -90,27 +89,32 @@ for(line in input){
     set(tmp, i : (i + new_vals - 1), j = 1L, memory_addresses)
     set(tmp, i : (i + new_vals - 1), j = 2L, val)
     i <- i + new_vals
-
-    # values[i : (i + new_vals - 1)] <- val
-    # memory[i : (i + new_vals - 1)] <- memory_addresses
-    # present <- memory_addresses %in% names(memory)
-    
-    # new_names <- sum(!present)
-    # if(any(!present)){
-    #   names(memory)[ i : (i + new_names - 1)] <- memory_addresses[!present]
-    #   i <- i + sum(!present)
-    # }
-    # 
-    # memory[memory_addresses] <- val
-    
-    # val_list <- setNames(
-    #   as.list(rep(val, length(memory_addresses))), 
-    #   memory_addresses
-    # )
-    # memory <- modifyList(memory, val_list)
-
   }
 }
 
-sum(tmp[, .SD[.N], by = memory]$values)
+print(sum(tmp[, .SD[.N], by = memory]$values), digits = 22)
 
+# Alternative
+# Create memory as an environment!
+# can assign new variables and values to old values with the same command
+# Slower than data.table method though
+memory <- new.env()
+
+for(line in input){
+  if(startsWith(line, "mask")){
+    mask <- strsplit(str_sub(line, 8), "")[[1]]
+    idx <- which(mask!="0")
+  } else {
+    # message(line)
+    add_val <- str_match(line, "^mem\\[(\\d+)\\] = (\\d+)")
+    val <- as.integer(add_val[3])
+    addr <- to_bit(as.integer(add_val[2]))
+    
+    # memory address decoding
+    addr[idx] <- mask[idx]
+    memory_addresses <- genaddr_mem(paste(addr, collapse = ""))
+    new_vals <- length(memory_addresses)
+    invisible(lapply(memory_addresses, assign, value = val, envir = memory))
+  }
+}
+print( sum(unlist(as.list(memory))), digits = 22)
