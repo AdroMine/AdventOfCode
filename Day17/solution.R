@@ -11,15 +11,16 @@ grid_size <- 2*(6 + 2) + n
 
 pocket <- array(0L, dim = rep(grid_size, 4))
 
-start <- (grid_size %/% 2)
+start <- (grid_size %/% 2 - n/2)
 k <- start : (start + n-1)
 # Part 1
 # store at middle
 pocket[k, k, start, start] <- input
 
-ind <- 2:(grid_size - 1)
+# ind <- 2:(grid_size - 1)
 
 for(i in 1:6){
+    ind <- seq(start - i, start + n-1 + i)
     updated <- pocket
     for(x in ind){
         for(y in ind){
