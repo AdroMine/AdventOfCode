@@ -17,8 +17,6 @@ k <- start : (start + n-1)
 # store at middle
 pocket[k, k, start, start] <- input
 
-# ind <- 2:(grid_size - 1)
-
 for(i in 1:6){
     ind <- seq(start - i, start + n-1 + i)
     updated <- pocket
