@@ -124,8 +124,10 @@ sum(sapply(input, function(expr) eval(parse(text = expr))))
 # Part 2 based on solution from /u/Standard-Affect (https://www.reddit.com/r/adventofcode/comments/kfeldk/2020_day_18_solutions/gg98owl)
 # only works though because problem does not have minus or divide operators
 
+# redefine `/` and `-` to add and multiply resp (refresh session after this!!). This will 
+# retain `/`'s higher precedence than `-`
 
-`/` <- function(x,y) x+y
+`/` <- function(x,y) x+y    
 `-` <- function(x,y) x*y
 input2 <- gsub("\\+", "/", input2)
 input2 <- gsub("\\*", "\\-", input2)
