@@ -113,9 +113,22 @@ input <- readLines("input.txt")
 `%m%` <- function(x,y) x*y
 `%d%` <- function(x,y) x/y
 
+input2 <- input
 input <- gsub("\\+", "%a%", input)
 input <- gsub("\\-", "%s%", input)
 input <- gsub("\\*", "%m%", input)
 input <- gsub("\\/", "%d%", input)
 
 sum(sapply(input, function(expr) eval(parse(text = expr))))
+
+# Part 2 based on solution from /u/Standard-Affect (https://www.reddit.com/r/adventofcode/comments/kfeldk/2020_day_18_solutions/gg98owl)
+# only works though because problem does not have minus or divide operators
+
+
+`/` <- function(x,y) x+y
+`-` <- function(x,y) x*y
+input2 <- gsub("\\+", "/", input2)
+input2 <- gsub("\\*", "\\-", input2)
+
+sum(sapply(input2, function(expr) eval(parse(text = expr))))
+
