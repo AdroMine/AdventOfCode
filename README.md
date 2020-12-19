@@ -23,3 +23,4 @@ Trying to do all questions in R, using vectorisation as far as possible.
 - Day 16 [Readme](./Day16/day_16_readme.md) - [Solution](./Day16/solution.R)
 - Day 17 [Readme](./Day17/day_17_readme.md) - [Solution](./Day17/solution.R)
 - Day 18 [Readme](./Day18/day_18_readme.md) - [Solution](./Day18/solution.R)
+- Day 19 [Readme](./Day19/day_19_readme.md) - [Solution](./Day19/solution.R)
