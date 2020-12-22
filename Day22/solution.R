@@ -4,85 +4,61 @@ library(purrr)
 library(dequer)
 input <- scan("input.txt", "character", sep = "\n")
 player <- grep("^Player", input)
-p1 <- as.integer(input[(player[1] + 1) : (player[2]-1)])
-p2 <- as.integer(input[(player[2] + 1) : length(input)])
-nc <- length(p1)
-d1 <- queue()
-d2 <- queue()
-for(i in 1:nc){
-    pushback(d1, p1[i])
-    pushback(d2, p2[i])
-}
 
+deck1 <- as.integer(input[(player[1] + 1) : (player[2]-1)])
+deck2 <- as.integer(input[(player[2] + 1) : length(input)])
 
-recursive_combat <- function(d1, d2, part2 = TRUE){
-    p1_decks <- vector("list", 1000)
-    p2_decks <- vector("list", 1000)
+game <- 0
+
+recursive_combat <- function(deck1, deck2, part2 = TRUE){
+    decks <- list()
     round <- 1
-    # print(paste(rep("=", 80), collapse = ""))
-    print("New Game!")
+    
+    d1 <- as.queue(as.list(deck1))
+    d2 <- as.queue(as.list(deck2))
+    
+    game <<- game + 1
+    
     while(!is_empty(d1) && !is_empty(d2)){
-        # print(paste("Round:", round))
-        if(round > 1){
-            c1 <- unlist(as.list(d1))
-            c2 <- unlist(as.list(d2))
-            p1_m <- sapply(p1_decks[1:(round-1)], function(x) 
-                length(c1) == length(x) && all(c1 == x))
-            p2_m <- sapply(p2_decks[1:(round-1)], function(x) 
-                length(c2) == length(x) && all(c2 == x))
-            
-            if(any(p1_m) || any(p2_m) && part2)
-                return("p1")
-        }
-        p1_decks[[round]] <- unlist(as.list(d1))
-        p2_decks[[round]] <- unlist(as.list(d2))
-        round <- round + 1
-        if(round > 1000)
-            stop("We need to increase allocation")
+        nd1 <- unlist(as.list(d1))
+        nd2 <- unlist(as.list(d2))
+        key <- paste(c(paste(nd1, collapse = ","), paste(nd2, collapse = ",")), sep = "|") 
+        if(key %in% decks && part2)
+            return(list("p1", d1))
+        
+        decks <- c(decks, key)
+        
         p1 <- pop(d1)
         p2 <- pop(d2)
         
-        p1_left <- length(d1)
-        p2_left <- length(d2)
-        if( (p1 <= p1_left) && (p2 <= p2_left) && part2){   # can recurse
+        if( (p1 <= length(d1)) && (p2 <= length(d2)) && part2){   # can recurse
             
-            nd1 <- as.queue(as.list(d1)[1:p1])
-            nd2 <- as.queue(as.list(d2)[1:p2])
-            winner <- recursive_combat(nd1, nd2, TRUE)
-            if(winner == "p1"){
-                pushback(d1, p1)
-                pushback(d1, p2)
-            } else{
-                pushback(d2, p2)
-                pushback(d2, p1)
+            nd1 <- nd1[2:(p1+1)]
+            nd2 <- nd2[2:(p2+1)]
+            if(max(nd1) > max(nd2)){     # If deck1's max is greatest then deck 1 can't lose
+                winner <- "p1"           # if any repeats then P1 wins, if P1 has greatest, then again he will win
+            } else{                      
+                winner <- recursive_combat(nd1, nd2, TRUE)[[1]]
             }
             
         } else {
-            
-            if(p1 > p2){
-                
-                pushback(d1, p1)
-                pushback(d1, p2)
-                
-            } else{
-                
-                pushback(d2, p2)
-                pushback(d2, p1)
-                
-            }
+            winner <- ifelse(p1 > p2, "p1","p2")
         }
-
+        if(winner == "p1"){
+            pushback(d1, p1)
+            pushback(d1, p2)
+        } else{
+            pushback(d2, p2)
+            pushback(d2, p1)
+        }
     }
     if(is_empty(d1)){
-        return("p2")
+        return(list("p2", d2))
     } else{
-        return("p1")
+        return(list("p1", d1))
     }
 }
 
-winner <- recursive_combat(d1, d2, TRUE) #False for part1 but reinitialise d1 d2
-if(is_empty(d1)){
-    sum(unlist(as.list(d2)) * (2*nc):1)
-} else{
-    sum(unlist(as.list(d1)) * (2*nc):1)
-}
+res <- recursive_combat(deck1, deck2, T)
+
+sum(unlist(as.list(res[[2]])) * length(res[[2]]):1)
