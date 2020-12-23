@@ -1,61 +1,75 @@
 input <- as.integer(c(3, 8, 9, 1, 2, 5, 4, 6, 7))
-
 input <- as.integer(strsplit("562893147", "")[[1]])
-
-input <- c(input, setdiff(1:1000000L, input))
-
-nxt <- c(input[-1], input[1])
-n <- length(input)
-
-nxt <- as.character(nxt)
-names(nxt) <- input
-nxt <- as.environment(as.list(nxt))
-
 
 print_list <- function(x, from = '1'){
     output <- rep(NA, length(x))
     output[1] <- as.integer(from)
     for(i in 2:length(x)){
-        output[i] <- get(as.character(output[i-1]), envir = x)
+        output[i] <- x[output[i-1]]
     }
     output
 }
 
-cur <- as.character(input[1])
-rm(input)
-for(i in 1:1e7){
-    if(i %% 10000 == 0L)
-        print(i)
+
+play_crab_game <- function(input, rounds, part2 = TRUE){
+    if(part2) 
+        input <- c(input, seq.int(10, 1e6))
     
-    # Pick out next three
-    pick <- rep(NA,3)
-    pick[1] <- get(cur, envir = nxt)
-    pick[2] <- get(pick[1], envir = nxt)
-    pick[3] <- get(pick[2], envir = nxt)
+    n <- length(input)
     
-    # pick <- pick3(nxt, cur)
+    nxt <- vector("integer", n)
+    nxt[input[1:(n-1)]] <- input[-1]
+    nxt[input[n]] <- input[1]
     
-    target <- (as.integer(cur) - 1L) %% n 
-    target <- ifelse(target == 0L, n, target)
-    while( target %in% pick ){
-        target <- (target - 1L) %% n
-        if(target == 0L)
+    cur <- input[[1]]
+    for(i in seq.int(1, rounds)){
+        
+        # Pick out next three
+        pick1 <- nxt[ cur ]
+        pick2 <- nxt[pick1]
+        pick3 <- nxt[pick2]
+        
+        if(cur == 1L){
             target <- n
+        } else 
+            target <- cur - 1L
+        
+        # target <- ifelse(cur == 1L, n, cur-1L)
+        while(target %in% c(pick1, pick2, pick3)){
+            if(target == 1L) {
+                target <- n
+            } else 
+                target <- target - 1L
+        }
+        
+        tmp           <- nxt[pick3]
+        nxt[cur]      <- tmp
+        nxt[pick3]    <- nxt[target]
+        nxt[target]   <- pick1
+        cur <- tmp
     }
-    target <- as.character(target)
     
-    tmp <- get(pick[3L], envir = nxt)
-    assign(cur, value = tmp, envir = nxt)
-    assign(pick[3L], envir = nxt, value = get(target, envir = nxt))
-    assign(target, value = pick[1L], envir = nxt)
-    
-    cur <- tmp
-    
+    if(part2){
+        prod(nxt[1], nxt[nxt[1]])
+    }
+    else {
+        paste(print_list(nxt, '1')[-1], collapse = "")
+    }
 }
 
-paste(print_list(nxt, '1')[-1], collapse = "")
+# Part 1
+play_crab_game(input, 100, FALSE)
 
-val1 <- get('1', envir = nxt)
-val2 <- get(val1, envir = nxt)
+# Part 2
+print(play_crab_game(input, 1e7, TRUE), digits = 22)
 
-print(prod(as.integer(c(val1, val2))), 22)
+
+
+
+
+
+
+
+
+
+
