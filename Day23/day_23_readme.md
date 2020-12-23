@@ -9,6 +9,7 @@ Game of rotating cups
 - Place the picked up cells after the destination. 
 
 - **Part 1** - find final order after 100 moves
-- **Part 2** - same but play game 2
+- **Part 2** - same but there are a 1e6 cups and 1e7 moves!!
 
 ### Solution summary 
+For part 2, the main bottleneck is that array indexing for single elements is too slow. Instead of a single array pointing towards next element, use environment instead which has much faster access time. 
