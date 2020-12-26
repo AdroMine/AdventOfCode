@@ -3,18 +3,46 @@ library(purrr)
 library(data.table)
 library(dplyr)
 library(tidyr)
+library(stringr)
 
 input <- readLines("input.txt")
 
-# Find where records start and end
-n_line <- which(input == '')
-record_start_idx <- c(1, n_line + 1)
-record_end_idx <- c(n_line - 1, length(input))
+blanks <- cumsum(input == "")
+records <- stringr::str_trim(tapply(input, blanks, paste, collapse = " "))
 
-# Create one line per record
-records <- map2_chr(record_start_idx, record_end_idx, function(s,e) {
-    paste(input[s:e], collapse = ' ')
-})
+# Another approach
+
+data <- lapply(str_match_all(records, "(\\w\\w\\w):([0-9a-z\\#]+)"), function(x) x[,-1])
+data <- lapply(data, function(x) x %>% as_tibble() %>% tibble::deframe())
+
+mand_fields <- c('byr', 'iyr', 'eyr', 'hgt', 'hcl', 'ecl', 'pid')
+
+# Part 1
+sum(sapply(data, function(x) all(mand_fields %in% names(x))))
+
+# Part 2
+valid_field <- function(x){
+    (
+        all(mand_fields %in% names(x)) &&
+            x['byr'] %in% 1920:2002 &&
+            x['iyr'] %in% 2010:2020 &&
+            x['eyr'] %in% 2020:2030 &&
+            grepl("^#[0-9a-f]{6}", x['hcl']) && 
+            ( (str_ends(x['hgt'], "cm") && str_sub(x['hgt'], end = -3L) %in% 150:193) || 
+                  (str_ends(x['hgt'], 'in') && str_sub(x['hgt'], end = -3L) %in% 59:76)) &&
+            x['ecl'] %in% c('amb', 'blu', 'brn', 'gry', 'grn', 'hzl', 'oth') && 
+            grepl("^[0-9]{9}$", x['pid'])
+    )
+    
+}
+sum(sapply(data, valid_field))
+
+
+
+
+# ------------------------------#
+# ------ Old Approach --------- #
+# ------------------------------#
 
 # Convert to table with 8 columns (each column contains key:value pairs)
 df <- fread(text = records, fill = TRUE)
@@ -63,3 +91,5 @@ df3 <- df2 %>%
 
 # Answer
 sum(df3$valid2)
+
+
