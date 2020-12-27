@@ -3,7 +3,7 @@
 ### Question Summary
 3D grid
 active vs inactive. 
-all cell schagne simultaneously :
+all cell change simultaneously :
 	- if cell is active and surrounded by 2/3 active, then remains active, else becomes inactive
 	- if cell is unactive and surrounded by 3 active, becomes active, else remains inactive
 
