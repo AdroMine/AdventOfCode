@@ -59,9 +59,9 @@ dp[1] <- 1
 for(i in 2:(n-1)){
     ans = 0
     # look at previous three elements
-    idx <- max(1, i-3):(i-1)
-    b <- input[idx] + 3 >= input[i]
-    ans <- sum(dp[idx[b]])
+    prev3 <- max(1, i-3):(i-1)
+    can_reach <- input[prev3] + 3 >= input[i]
+    ans <- sum(dp[prev3[can_reach]])
     dp[i] <- ans
         
 }

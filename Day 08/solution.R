@@ -9,13 +9,13 @@ run_prog <- function(input, verbose = TRUE){
     input$exec <- 0 # to count no of executions
     input$step <- 0
     input$id <- 1:nrow(input)
-    no_inst <- nrow(input)
+    num_inst <- nrow(input)
     
     acc <- 0
     i <- 1
     step <- 0
     
-    while(i<=no_inst){
+    while(i<=num_inst){
         if(input[i, 3]){ #if > 0, break
             if(verbose){
                 message(
@@ -46,7 +46,7 @@ run_prog <- function(input, verbose = TRUE){
             i <- i + 1
         }
     }
-    list(input = input, acc = acc, step = step, success = i>no_inst)
+    list(input = input, acc = acc, step = step, success = i>num_inst)
 }
 
 # Answer 1
