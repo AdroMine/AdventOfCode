@@ -1,7 +1,7 @@
 setwd(dirname(rstudioapi::getActiveDocumentContext()$path))
 
 library(dplyr)      # for lag
-library(data.table) # for rolling su,
+library(data.table) # for rolling sum
 
 input <- readLines("input.txt")
 input <- as.numeric(input)
