@@ -1,6 +1,6 @@
 # AdventOfCode2021
 
-Repo containing my solutions for Advent of Code 2021 [URL](adventofcode.com/2021). 
+Repo containing my solutions for Advent of Code 2021 [URL](https://adventofcode.com/2021). 
 
 Trying to do all questions in R, using vectorisation as far as possible. 
 
