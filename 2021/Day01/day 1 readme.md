@@ -6,4 +6,5 @@
 
 ### Solution summary 
 Part1 - subtract lag of series from series to get differences, then find those which are positive
+
 Part2 - find rolling sum first then repeat
