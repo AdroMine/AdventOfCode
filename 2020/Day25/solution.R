@@ -7,7 +7,7 @@ card_key <- as.numeric(input[1])
 door_key <- as.numeric(input[2])
 
 
-loop_keys <- vector("numeric", 1e7)
+loop_keys <- vector("numeric", 2e7)
 loop_keys[1] <- 7
 idx <- 1
 

@@ -1,0 +1,73 @@
+---
+title: "Crab Combat!"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, warning = FALSE, message = FALSE)
+```
+
+# Game simulation to see probabilites of winning
+
+From Advent of Code 2020, Day 22 [Link](https://adventofcode.com/2020/day/22)
+
+Crab combat is a two player game with two variations. 
+
+Each player starts with a deck of 25 cards. Assuming cards are in the range of 1:50 for both players with no repetitions. 
+ 
+In each round each player plays the top card in their deck and the greater number wins. The winner gets both cards and these go to the bottom of his deck (the winning card above the losing card). The game ends when either player deck gets all the cards. 
+
+In the type 2 of this game, there are certain extra rules:
+- Before either player deals a card, if there was a previous round in this game that had exactly the same cards in the same order in the same players' decks, the game instantly ends in a win for player 1. Previous rounds from other games are not considered.
+- Otherwise, this round's cards must be in a new configuration; the players begin the round by each drawing the top card of their deck as normal.
+- If both players have at least as many cards remaining in their deck as the value of the card they just drew, the winner of the round is determined by playing a new game of Recursive Combat.
+- Otherwise, at least one player must not have enough cards left in their deck to recurse; the winner of the round is the player with the higher-value card.
+
+Again, the game ends when either player is left with no cards. 
+
+Let's load in the code to 
+
+```{r, message=FALSE}
+source("./solution.R")
+# loads function recursive_combat(deck1, deck2, variation2?)
+# returns a list (who won "P1 or P2" and the winner's deck)
+```
+
+## Simulation
+```{r}
+library(tidyverse)
+
+crossing(trial = 1:10000) %>% 
+    group_by(trial) %>% 
+    mutate(deck1 = list(sample.int(50L, 25))) %>% 
+    ungroup() %>% 
+    mutate(deck2 = map(deck1, ~setdiff(1:50, .x))) %>% 
+    mutate(win = map2_chr(deck1, deck2, ~recursive_combat(.x, .y, FALSE)[[1]]))
+```
+
+```{r}
+player1_decks <- replicate(100, sample.int(50L, 25L, replace = FALSE), simplify = FALSE)
+player2_decks <- lapply(player1_decks, function(x) setdiff(1L:50L, x))
+
+winners <- map2_chr(player1_decks, player2_decks, 
+                    ~recursive_combat(.x, .y, FALSE)[[1]])
+
+p1_had_50 <- sapply(player1_decks, function(x) 50 %in% x)
+table(winners, p1_had_50)
+```
+
+### Player who gets 50 always wins! 50% probability to get this
+
+
+```{r}
+
+winners2 <- vector("character", length(player1_decks))
+
+for(i in seq_along(player1_decks)){
+    print(i)
+    winners2[i] <- recursive_combat(player1_decks[[i]], player2_decks[[i]], TRUE)
+}
+
+
+table(winners2, p1_had_50)
+```
