@@ -8,30 +8,30 @@ Trying to do all questions in R, using vectorisation as far as possible.
 
 
 
-Day  | Readme                                        | R Solution                             | Problem summary
-:--- | :-------                                      | :----------:                           | :---------------
-01   | [Readme](./2020/Day%2001/day%201%20readme.md) | [Solution](./2020/Day%2001/solution.R) | which nums sum to 2020
-02 |||
-03 |||
-04 |||
-05 |||
-06 |||
-07 |||
-08 |||
-09 |||
-10 |||
-11 |||
-12 |||
-13 |||
-14 |||
-15 |||
-16 |||
-17 |||
-18 |||
-19 |||
-20 |||
-21 |||
-22 |||
-23 |||
-24 |||
-25 |||
+Day  | Readme                                | R Solution                     | Problem summary
+:--- | :-------                              | :----------:                   | :---------------
+01   | [Readme](./Day01/day%201%20readme.md) | [Solution](./Day01/solution.R) | which numbers are greater than previous number
+02   |                                       |                                |
+03   |                                       |                                |
+04   |                                       |                                |
+05   |                                       |                                |
+06   |                                       |                                |
+07   |                                       |                                |
+08   |                                       |                                |
+09   |                                       |                                |
+10   |                                       |                                |
+11   |                                       |                                |
+12   |                                       |                                |
+13   |                                       |                                |
+14   |                                       |                                |
+15   |                                       |                                |
+16   |                                       |                                |
+17   |                                       |                                |
+18   |                                       |                                |
+19   |                                       |                                |
+20   |                                       |                                |
+21   |                                       |                                |
+22   |                                       |                                |
+23   |                                       |                                |
+24   |                                       |                                |
+25   |                                       |                                |
