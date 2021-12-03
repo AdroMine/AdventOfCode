@@ -10,11 +10,11 @@ getmode <- function(v) {
     return(0)
 }
 
-gamma <- as.character(sapply(input, getmode))
+gamma <- paste(as.character(sapply(input, getmode)), collapse = "")
 # epsilon = invert each bit of gamma
 epsilon <- chartr("01", "10", gamma)
 
-
+strtoi(gamma, 2) * strtoi(epsilon,2)
 
 # Part 2
 o2 <- input
