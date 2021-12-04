@@ -1,4 +1,4 @@
-# Day 3: Report Repair[Link](https://adventofcode.com/2021/day/3)
+# Day 3: Binary Diagnostic[Link](https://adventofcode.com/2021/day/3)
 
 ### Question Summary
 - **Part 1** - 1000 binary numbers of 12 digits. Find the most common 1st digit, 2nd digit, etc. and form a binary number. Form a second binary number by using the least common (inverse of most common since binary). multiply these number together after converting to decimal

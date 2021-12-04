@@ -1,4 +1,4 @@
-# Day 2: Report Repair[Link](https://adventofcode.com/2021/day/2)
+# Day 2: Dive![Link](https://adventofcode.com/2021/day/2)
 
 ### Question Summary
 - **Part 1** - Instructions like "direction movement" are provided. Need to find final position
