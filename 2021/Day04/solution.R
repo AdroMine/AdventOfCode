@@ -60,3 +60,29 @@ board_sum(boards[[winners[1]]], winning_num[1])
 # Part 2
 
 board_sum(boards[[winners[n_boards]]], winning_num[n_boards])
+
+
+
+
+# Using 3D arrays instead -------------------------------------------------
+# inspired from https://www.reddit.com/r/adventofcode/comments/r8i1lq/comment/hn63vwj/
+
+b <- array(as.matrix(all_boards), dim = c(5, n_boards, 5))
+b <- aperm(b, c(1, 3, 2))               # make 3rd dim as the index for board
+# now b is a 3d array with one 5x5 board accessed as b[, , i]
+
+scores <- vector("numeric", n_boards)
+i <- 1
+
+for(n in input){
+    b[b == n] <- -1
+    m = (b == -1)
+    win <- apply((apply(m, c(3,1), all) | apply(m, c(3, 2), all)), 1, any)
+    if(any(win)){
+        scores[i] <- sum((b * !m)[,,win]) * n
+        i <- i + 1
+        b[,,win] <- -2
+    }
+}
+
+print(paste("Part", 1:2, "=", scores[c(1, i-1)]))
