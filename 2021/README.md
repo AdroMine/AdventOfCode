@@ -13,4 +13,5 @@ Day  | Readme                                | R Solution                     | 
 01   | [Readme](./Day01/day%201%20readme.md) | [Solution](./Day01/solution.R) | which numbers are greater than previous number
 02   | [Readme](./Day02/day%202%20readme.md) | [Solution](./Day02/solution.R) | final position of submarine based on simple logo like directions
 03   | [Readme](./Day03/day%203%20readme.md) | [Solution](./Day03/solution.R) | binary numbers. Form numbers using most common and inverse digits
-04   | [Readme](./Day03/day%204%20readme.md) | [Solution](./Day04/solution.R) | Play bingo.
+04   | [Readme](./Day04/day%204%20readme.md) | [Solution](./Day04/solution.R) | Play bingo.
+05   | [Readme](./Day05/day%205%20readme.md) | [Solution](./Day05/solution.R) | Find intersecting lines
