@@ -15,3 +15,4 @@ Day  | Readme                                | R Solution                     | 
 03   | [Readme](./Day03/day%203%20readme.md) | [Solution](./Day03/solution.R) | binary numbers. Form numbers using most common and inverse digits
 04   | [Readme](./Day04/day%204%20readme.md) | [Solution](./Day04/solution.R) | Play bingo.
 05   | [Readme](./Day05/day%205%20readme.md) | [Solution](./Day05/solution.R) | Find intersecting lines
+06   | [Readme](./Day06/day%206%20readme.md) | [Solution](./Day06/solution.R) | Simulate exponential growth
