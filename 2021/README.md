@@ -16,3 +16,4 @@ Day  | Readme                                | R Solution                     | 
 04   | [Readme](./Day04/day%204%20readme.md) | [Solution](./Day04/solution.R) | Play bingo.
 05   | [Readme](./Day05/day%205%20readme.md) | [Solution](./Day05/solution.R) | Find intersecting lines
 06   | [Readme](./Day06/day%206%20readme.md) | [Solution](./Day06/solution.R) | Simulate exponential growth
+07   | [Readme](./Day07/day%207%20readme.md) | [Solution](./Day07/solution.R) | Find position that leads to least deviation
