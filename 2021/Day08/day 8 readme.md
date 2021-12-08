@@ -8,6 +8,7 @@
 
 The 7 segment display is in the following form (have assigned number to each position arbitrariliy)
 
+```
 #     1
 #   -----
 #  |     |  
@@ -20,6 +21,7 @@ The 7 segment display is in the following form (have assigned number to each pos
 #   -----
 #     4
 # 
+```
 
 Starting with the example input: acedgfb cdfbe gcdfa fbcad dab cefabd cdfgeb eafb cagedb ab
 
@@ -33,6 +35,7 @@ Here we know that:
 
 Thus we have:
 
+```
 #        d
 #      -----
 #     |     |  
@@ -45,6 +48,7 @@ Thus we have:
 #      -----
 #        4
 #    
+```
 
 Next, we know that 2, 3, 5 are all have 5 segments. Thus 2, 3, 5 must be in cdfbe, gcdfa & fbcad
 
@@ -54,6 +58,7 @@ Next, we know that 2, 3, 5 are all have 5 segments. Thus 2, 3, 5 must be in cdfb
 Now that we know 3, we know that it contains position 7, that it has common with 4. Thus position 7
 must be f, and therfore position 6 will be e
 
+```
 #        d
 #      -----
 #     |     |  
@@ -66,6 +71,7 @@ must be f, and therfore position 6 will be e
 #      -----
 #        4
 #    
+```
 
 
 Next, 5 contains both digits of 4 that are not in 1 (i.e. ef), so:
@@ -76,6 +82,7 @@ therefore position 2 must be a. Also, the last remaining character in 5 is c, wh
 4. Thus we now have:
 
 
+```
 #        d
 #      -----
 #     |     |  
@@ -88,10 +95,12 @@ therefore position 2 must be a. Also, the last remaining character in 5 is c, wh
 #      -----
 #        c
 #    
+```
 
 Only position 5 is left, which must be the remaining letter left, which is g. 
 
 
+```
 #        d
 #      -----
 #     |     |  
@@ -103,6 +112,7 @@ Only position 5 is left, which must be the remaining letter left, which is g.
 #     |     |  
 #      -----
 #        c
+```
 
 Thus, we have now found where all these characters go. The remaining inputs can thus be identified
 either by combining the positions here:
