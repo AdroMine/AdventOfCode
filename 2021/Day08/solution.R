@@ -91,8 +91,7 @@ decode <- function(s, o){
     digits_pos[6] <- setdiff(setdiff(d4, d1), digits_pos[7])
     
     # 5 contains both unique digits of d4 (not in d1)
-    d5 <- grep(both(setdiff(d4, d1)), 
-               setdiff(cand_235, paste(d3, collapse = "")), value = TRUE)
+    d5 <- grep(both(setdiff(d4, d1)), cand_235, value = TRUE)
     
     # 2 is the candidate left in cand_235
     d2 <- chars(setdiff(cand_235, d5))
