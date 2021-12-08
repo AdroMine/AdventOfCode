@@ -34,8 +34,8 @@ both <- function(chr){
 
 # characters of x in y?
 char_in <- function(x, y, not = FALSE){
-    x <- chars(x)
-    y <- chars(y)
+    # x <- chars(x)
+    # y <- chars(y)
     if(not) x[!x %in% y] else x[x %in% y]
 }
 
@@ -61,58 +61,57 @@ decode <- function(s, o){
     
     # determine unique digits
     lens <- nchar(s)
-    d1 <- s[which(lens == 2)]
-    d4 <- s[which(lens == 4)]
-    d7 <- s[which(lens == 3)]
-    d8 <- s[which(lens == 7)]
+    d1 <- chars(s[which(lens == 2)])
+    d4 <- chars(s[which(lens == 4)])
+    d7 <- chars(s[which(lens == 3)])
+    d8 <- chars(s[which(lens == 7)])
     
     # determined final pos of d1 digit (see above diagram for indices)
-    digits_pos[1] <- char_in(d7, d1, TRUE)
+    digits_pos[1] <- setdiff(d7, d1)
     
     
     # determine 2, 3, 5 (5 char digits)
     cand_235 <- s[which(lens == 5)]
     
     # 3 will contain both digits of d1 (2 & 5 won't)
-    d3 <- grep(both(chars(d1)), cand_235, value = TRUE)
+    d3 <- grep(both(d1), cand_235, value = TRUE)
+    
+    # remove 3 from the candidate list
+    cand_235 <- setdiff(cand_235, d3)
+    
+    # split into characters
+    d3 <- chars(d3)
     
     # from 3 we find out the 6th and 7th index
     
     # 7th index = char in both 3 and 4 but not in one
-    digits_pos[7] <- intersect(chars(d3), 
-                               setdiff(chars(d4), chars(d1)))
+    digits_pos[7] <- setdiff(intersect(d3, d4), d1)
     
     # 6th index = unique char in 4 that are not in digits_pos already
-    digits_pos[6] <- setdiff(setdiff(chars(d4), chars(d1)), digits_pos[7])
+    digits_pos[6] <- setdiff(setdiff(d4, d1), digits_pos[7])
     
     # 5 contains both unique digits of d4 (not in d1)
-    d5 <- grep(both(setdiff(chars(d4), chars(d1))), 
-                 setdiff(cand_235, d3), value = TRUE)
-    
-    # from 5 we determine the indices of 2, 3, 4, 5
-    digits_pos[3] <- char_in(d5, d1) # char in 5 and 1
-    digits_pos[2] <- char_in(d1, digits_pos[3], TRUE) # char in 1 not in 3
-    digits_pos[4] <- setdiff(chars(d5), digits_pos) # char in 5 not accounted for by now
-    digits_pos[5] <- setdiff(letters[1:7], digits_pos) # the final letter left
+    d5 <- grep(both(setdiff(d4, d1)), 
+               setdiff(cand_235, paste(d3, collapse = "")), value = TRUE)
     
     # 2 is the candidate left in cand_235
-    d2 <- setdiff(cand_235, c(d3, d5))
+    d2 <- chars(setdiff(cand_235, d5))
+    d5 <- chars(d5)
+    
+    # from 5 we determine the indices of 2, 3, 4, 5
+    digits_pos[3] <- intersect(d5, d1)                 # char in 5 and 1
+    digits_pos[2] <- setdiff(d1, digits_pos[3])        # char in 1 not in 3
+    digits_pos[4] <- setdiff(d5, digits_pos)           # char in 5 not accounted for by now
+    digits_pos[5] <- setdiff(letters[1:7], digits_pos) # the final letter left
+    
     
     # candidates for 6, 9 and 0
-    cand_960 <- s[which(lens == 6)]
-    
-    # 6 does not contain 2nd index from the 7 digit 
-    d6 <- grep(digits_pos[2], cand_960, invert = TRUE, value = TRUE)
-    
-    # 9 does not contain 5th index
-    g9 <- grep(digits_pos[5], cand_960, invert = TRUE, value = TRUE)
-    
-    # 0 does not contain 7th index
-    d0 <- grep(digits_pos[7], cand_960, invert = TRUE, value = TRUE)
+    d6 <- digits_pos[-2]
+    d9 <- digits_pos[-5]
+    d0 <- digits_pos[-7]
     
     # set of characters for the different digits
-    mapping <- c(d0, d1, d2,  d3, d4, d5, d6, d7, d8, g9)
-    mapping <- lapply(mapping, chars)
+    mapping <- list(d0, d1, d2,  d3, d4, d5, d6, d7, d8, d9)
     
     num <- ""
     for(word in o){
