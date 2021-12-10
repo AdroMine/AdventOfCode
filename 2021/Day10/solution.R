@@ -6,11 +6,15 @@ file_name <- "input.txt"
 
 input <- readLines(file_name)
 
-points <- c(")" = 3, "]" = 57, "}" = 1197, ">" = 25137)
 mapping <- c("(" = ")", 
              "{" = "}", 
              "[" = "]", 
              "<" = ">")
+
+points <- c(")" = 3,
+            "]" = 57,
+            "}" = 1197,
+            ">" = 25137)
 
 points2 <- c("(" = 1,
              "[" = 2,
@@ -20,12 +24,12 @@ points2 <- c("(" = 1,
 
 ans1 <- 0
 ans2 <- c()
-incomple <- 0
 for(line in input){
     
     line <- strsplit(line, "")[[1]]
     stack <- vector("list", length = length(line))
     i <- 0
+    incomplete <- TRUE
     
     for(char in line){
         if(char %in% c("(", "[", "{", "<")){
@@ -38,13 +42,13 @@ for(line in input){
             i <- i - 1
             
             if(char != mapping[popped]){
-                print("reached here")
                 ans1 <- ans1 + points[char]
+                incomplete <- FALSE
                 next
             }
         }
     }
-    if(i > 0){
+    if(incomplete){
         total <- 0
         while(i > 0){
             popped <- stack[[i]]
