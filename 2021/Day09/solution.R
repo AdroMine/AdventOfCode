@@ -78,10 +78,7 @@ for(i in 2:(row + 1)){
             candidates <- candidates$coords
             
             # until there are no candidates left to be looked at
-            while(TRUE){
-                
-                if(length(candidates) == 0)
-                    break
+            while(length(candidates)){
                 
                 # pop one
                 cd <- candidates[[1]]
