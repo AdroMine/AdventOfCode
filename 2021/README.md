@@ -19,3 +19,4 @@ Day  | Readme                                | R Solution                     | 
 07   | [Readme](./Day07/day%207%20readme.md) | [Solution](./Day07/solution.R) | Find position that leads to least deviation
 08   | [Readme](./Day08/day%208%20readme.md) | [Solution](./Day08/solution.R) | Digital Display (7 segment search)
 09   | [Readme](./Day09/day%209%20readme.md) | [Solution](./Day09/solution.R) | Lava Tubes (2D grid, find low point + 3 largest basins)
+10   | [Readme](./Day10/day%210%20readme.md) | [Solution](./Day10/solution.R) | Match brackets
