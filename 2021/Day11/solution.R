@@ -93,3 +93,54 @@ while(TRUE){
 
 ans1
 state
+
+
+
+
+
+# matrix based using convolutions from gignal library
+
+
+# convolution slides a 3x3 window across the matrix
+# multiplies the sub matrix and the window (element wise)
+# and then sums it to get a single value for each point
+# in our case this calculates the number of points that will
+# impact any point (increase due to flashing neighbour)
+
+mat <- input
+
+# kernel for adjacent
+kernel <- matrix(data = 1, nrow = 3, ncol = 3)
+kernel[2,2] <- 0
+
+state <- 0
+count <- 0
+while(sum(mat) > 0){
+    state <- state + 1
+    
+    mat <- mat + 1
+    
+    mat_copy <- mat
+    
+    repeat {
+        
+        flashed <- mat > 9
+        
+        # convolution calculates cells affected, increase count by same
+        mat <- mat_copy + gsignal::conv2(mat > 9, kernel, 'same')
+        
+        # if no change in flashes
+        if(all((mat > 9) == flashed)){
+            count <- count + sum(flashed)
+            mat[flashed] <- 0
+            break
+        }
+    }
+    
+    
+    if(state == 100){
+        print(paste("No of flashes after state:100 =", count))
+    }
+}
+
+print(paste("State when all flashed first =", state))
