@@ -21,3 +21,4 @@ Day  | Readme                                | R Solution                     | 
 09   | [Readme](./Day09/day%209%20readme.md) | [Solution](./Day09/solution.R) | Lava Tubes (2D grid, find low point + 3 largest basins)
 10   | [Readme](./Day10/day%210%20readme.md) | [Solution](./Day10/solution.R) | Match brackets
 11   | [Readme](./Day11/day%211%20readme.md) | [Solution](./Day11/solution.R) | Game of Life (octopus flashing)
+12   | [Readme](./Day11/day%211%20readme.md) | [Solution](./Day11/solution.R) | Graph traversal. (Big caves, small caves)
