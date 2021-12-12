@@ -2,8 +2,8 @@ setwd(dirname(rstudioapi::getActiveDocumentContext()$path))
 library(dplyr)
 
 # Read in input
-# file_name <- "sample1.txt"
-file_name <- "input.txt"
+file_name <- "sample3.txt"
+# file_name <- "input.txt"
 
 input <- read.table(file_name, sep = "-")
 
@@ -32,39 +32,29 @@ res <- parse_input(input)
 from <- res$from
 to   <- res$to
 
-generate_graph <- function(st = 'start', prev = NULL, part1 = TRUE){
+# faster solution, takes around 3 seconds for part2
+generate_graph <- function(st = 'start', cant = NULL, part2 = FALSE){
+    if(st == "end")
+        return(1)
+    
+    paths <- 0
     e2 <- to[which(from == st)]
-    
-    small <- grep("[[:lower:]]", c(prev, st), value = TRUE, perl = TRUE)
-    
-    if(length(small) > 0){
-        
-        if(part1){
-            e2 <- setdiff(e2, small)
-        } else {
-            
-            if(anyDuplicated(small)){
-                e2 <- setdiff(e2, small)
-            }
-        }
-    }
     
     for(p in e2){
         
-        if(p == 'end'){
-            count <<- count + 1
-            next
-        } else {
-            Recall(p, c(prev, st), part1 = part1)
+        if(!(p %in% cant)){
+            nxt_cant <- if(tolower(p) == p) p else NULL
+            paths <- paths + Recall(p, c(cant, nxt_cant), part2)
+        } else if(part2){
+            paths <- paths + Recall(p, cant, FALSE)
         }
+        
+        
     }
+    paths
 }
 
-count <- 0
-generate_graph(st = 'start', prev = NULL, part1 = TRUE)
-count
+generate_graph(st = 'start', cant = NULL, part2 = FALSE)
+generate_graph(st = 'start', cant = NULL, part2 = TRUE)
 
-count <- 0
-generate_graph(st = 'start', prev = NULL, part1 = FALSE)
-count
 
