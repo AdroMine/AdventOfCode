@@ -1,9 +1,9 @@
 setwd(dirname(rstudioapi::getActiveDocumentContext()$path))
 
-Sys.setlocale(locale = "Chinese")
+Sys.setlocale(locale = "Chinese") # for printing block letter █
 
 # Read in input
-file_name <- "sample.txt"
+# file_name <- "sample.txt"
 file_name <- "input.txt"
 
 input <- readLines(file_name)
@@ -21,8 +21,8 @@ fold_inst$V1 <- gsub("fold along ", "", fold_inst$V1)
 C <- max(coords$V1) + 1
 R <- max(coords$V2) + 1
 
-# create matrix
-mat <- matrix(0, nrow = R, ncol = C)
+# create matrix (make size larger, since in some cases we don't have enough cols/rows left for folding)
+mat <- matrix(0, nrow = 2*R, ncol = 2*C)
 
 # fill coordinates with values
 mat[cbind(coords$V2+1, coords$V1+1)] <- 1
@@ -33,26 +33,16 @@ for(i in 1:nrow(fold_inst)){
     dir <- fold_inst$V1[i]
     place <- fold_inst$V2[i] + 1
     
+    m1 <- seq(1, place - 1)
+    m2 <- seq(place + 1, 2*place - 1)
+    
     if(dir == 'x'){
         # fold left
-        
-        m1 <- 1:(place-1)
-        m2 <- (place + 1):ncol(mat)
-        # length(m2) might not match length(m1)
-        m2 <- m2[1:length(m1)] # this might create NAs though, fill them with FALSE
         mat <- mat[, m1] | mat[, rev(m2)]
         
-        
     } else {
-        # fold up 
-        
-        m1 <- 1: (place - 1)
-        m2 <- (place + 1):nrow(mat)
-        m2 <- m2[1:length(m1)]
         mat <- mat[m1, ] | mat[rev(m2), ]
-        
     }
-    mat[is.na(mat)] <- FALSE
     
     # part 1
     if(i == 1)
@@ -60,17 +50,23 @@ for(i in 1:nrow(fold_inst)){
     
 }
 
-# Print
-k <- mat  
-# change TRUE FALSE to █ and  
-k[k == TRUE]  <- "█"   # if this character doesn't print properly, set your locate to Chinese (line # 2)
-k[k == FALSE] <- " "
 
-kl <- apply(k, 1, paste0, collapse = "")
-
-for(i in seq_along(kl)){
-    cat(kl[i])
-    cat("\n")
+print_mat <- function(mat){
+    # Print
+    k <- mat  
+    # change TRUE FALSE to █ and  
+    k[k == TRUE]  <- "█"   # if this character doesn't print properly, set your locate to Chinese (line # 2)
+    k[k == FALSE] <- " "
+    
+    kl <- apply(k, 1, paste0, collapse = "")
+    
+    for(i in seq_along(kl)){
+        cat(kl[i])
+        cat("\n")
+    }
 }
 
+print_mat(mat)
+
 # HKUJGAJZ
+
