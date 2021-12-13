@@ -40,26 +40,12 @@ while(TRUE){
         
         new_grid <- new.env()               # new grid for after folding
         
-        if(dir == 'x'){
-            # fold left
-            for(cord in grid){
-                
-                x <- cord[1]
-                y <- cord[2]
-                
-                x2 <- if(x < val) x else val - (x - val)
-                assign(c_name(x2, y), TRUE, envir = new_grid)
-                
-            }
-        } else {
-            # fold up
-            
-            for(cord in grid){
-                x <- cord[1]
-                y <- cord[2]
-                y2 <- if(y < val) y else val - (y - val)
-                assign(c_name(x, y2), TRUE, envir = new_grid)
-            }
+        for(cord in grid){
+            x <- cord[1]
+            y <- cord[2]
+            x2 <- if(dir == 'x') min(x, 2*val - x) else x
+            y2 <- if(dir == 'y') min(y, 2*val - y) else y
+            assign(c_name(x2, y2), TRUE, envir = new_grid)
         }
         
         env <- new_grid
