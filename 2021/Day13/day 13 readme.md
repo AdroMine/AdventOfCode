@@ -10,4 +10,9 @@ Take a logical matrix (# - TRUE, . - FALSE). Find position of fold and then take
 
 For printing the characters, replace TRUE with █ and FALSE with . Set locale to Chinese to enable printing of these characters and then print. 
 
+## Alternative Solution
+
+[Link](./solution2.R)
+
+Uses environment in dictionary style to only store the coordinates that have one. No creation of matrix. 
 
