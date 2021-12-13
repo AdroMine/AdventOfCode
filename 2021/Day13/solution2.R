@@ -60,7 +60,7 @@ close(f)
 
 print_env(env)
 
-print_env <- function(env, char = "█"){
+print_env <- function(env, char = "█", blank = " "){
     nms <- ls(env)
     cds <- strsplit(nms, "g") |> lapply(as.integer)
     
@@ -69,22 +69,7 @@ print_env <- function(env, char = "█"){
     
     for(i in 0:C){
         for(j in 0:R){
-            if(c_name(j,i) %in% nms) cat(char) else cat(" ")
-        }
-        cat("\n")
-    }
-}
-
-print_env2 <- function(env){
-    nms <- ls(env)
-    cds <- strsplit(nms, "g") |> lapply(as.integer)
-    
-    R <- max(sapply(cds, function(x) x[1]))
-    C <- max(sapply(cds, function(x) x[2]))
-    
-    for(i in 0:C){
-        for(j in 0:R){
-            if(c_name(j,i) %in% nms) cat("#") else cat(".")
+            if(c_name(j,i) %in% nms) cat(char) else cat(blank)
         }
         cat("\n")
     }
