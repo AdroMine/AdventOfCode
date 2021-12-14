@@ -15,7 +15,7 @@ Day  | Readme                                | R Solution                     | 
 03   | [Readme](./Day03/day%203%20readme.md) | [Solution](./Day03/solution.R) | binary numbers. Form numbers using most common and inverse digits
 04   | [Readme](./Day04/day%204%20readme.md) | [Solution](./Day04/solution.R) | Play bingo.
 05   | [Readme](./Day05/day%205%20readme.md) | [Solution](./Day05/solution.R) | Find intersecting lines
-06   | [Readme](./Day06/day%206%20readme.md) | [Solution](./Day06/solution.R) | Simulate exponential growth
+06   | [Readme](./Day06/day%206%20readme.md) | [Solution](./Day06/solution.R) | Simulate exponential growth of lanternfish
 07   | [Readme](./Day07/day%207%20readme.md) | [Solution](./Day07/solution.R) | Find position that leads to least deviation
 08   | [Readme](./Day08/day%208%20readme.md) | [Solution](./Day08/solution.R) | Digital Display (7 segment search)
 09   | [Readme](./Day09/day%209%20readme.md) | [Solution](./Day09/solution.R) | Lava Tubes (2D grid, find low point + 3 largest basins)
@@ -23,3 +23,4 @@ Day  | Readme                                | R Solution                     | 
 11   | [Readme](./Day11/day%211%20readme.md) | [Solution](./Day11/solution.R) | Game of Life (octopus flashing)
 12   | [Readme](./Day12/day%212%20readme.md) | [Solution](./Day12/solution.R) | Graph traversal. (Big caves, small caves)
 13   | [Readme](./Day13/day%213%20readme.md) | [Solution](./Day13/solution.R) | Paper Folding
+14   | [Readme](./Day14/day%214%20readme.md) | [Solution](./Day14/solution.R) | Polymer Extension (Transition states)
