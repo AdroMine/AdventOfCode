@@ -11,72 +11,70 @@ file_name <- "input.txt"
 width <- nchar(readLines(file_name, n = 1))
 
 input <- as.matrix(read.fwf(file_name, widths = rep(1, width)))
-
-
-djikstra <- function(graph){
+dijkstra <- function(graph){
     
-    width <- nrow(graph)
-    dist <- matrix(Inf, width, width)
-    dist[1,1] <- 0
+    N <- nrow(graph)
+    goal <- c(N, N)
     
-    visited <- matrix(FALSE, width, width)
+    openset <- collections::priority_queue()
+    openset$push(c(1,1), priority = 0)
     
-    nxt_possible <- function(xy){
+    visited <- matrix(FALSE, N, N)
+    
+    # gscore
+    mindist <- matrix(Inf, N, N)
+    mindist[1,1] <- 0
+    
+    neighbours <- function(xy){
         x <- xy[1]
         y <- xy[2]
         
-        res <- list(
+        list(
             c(x , y - 1),  # left
             c(x , y + 1),  # right
             c(x + 1, y ),  # down
             c(x - 1, y)    # up
         )
-        # unique(lapply(res,\(x) pmin(width, pmax(1, x))))
-        res
+    }   
+    
+    while(openset$size() > 0){
         
-    }
-    N <- width * width
-    while(!visited[width, width]){
-        
-        # print(sum(visited)/N * 100)
-        
-        not_visited <- which(!visited)
-        curr <- arrayInd(not_visited[which.min(dist[not_visited])], .dim = c(width, width))[1,]
-        
+        curr <- openset$pop()
         cx <- curr[1]
         cy <- curr[2]
+        d <- mindist[cx,cy]
+        
+        if(all(curr == goal))
+            break
+        
+        # if(visited[cx, cy])
+        #     next
         
         visited[cx, cy] <- TRUE
         
-        adjacent <- nxt_possible(curr)
+        adjacent <- neighbours(curr)
         
-        # for(nbr in adjacent){
-        for(i in seq_along(adjacent)){
-            
-            nbr <- adjacent[[i]]
-            
+        for(nbr in adjacent){
             nx <- nbr[1]
             ny <- nbr[2]
-            if(nx > width || ny > width || nx < 1 || ny < 1)
-                next
-            alt <- dist[cx,cy] + graph[nx,ny]
             
-            if(alt < dist[nx,ny]){
-                dist[nx,ny] <- alt
+            if(nx > N || ny > N || nx < 1 || ny < 1)
+                next
+            
+            alt <- d + graph[nx,ny]
+            
+            if(alt < mindist[nx,ny]){
+                mindist[nx,ny] <- alt
+                openset$push(nbr, priority = -alt)
             }
-            # nxt_dist[i] <- dist[nx, ny]
-        }
-        
-    }   
-    dist[width, width]
+        }      
+    }
     
+    mindist[N, N]
 }
 
-
 # Part 1
-djikstra(input)
-
-
+dijkstra(input)
 
 # Part 2
 
@@ -97,4 +95,4 @@ for(i in 1:4){
     
 }
 
-djikstra(resx)
+dijkstra(resx)
