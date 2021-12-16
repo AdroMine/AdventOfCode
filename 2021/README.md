@@ -25,3 +25,4 @@ Day  | Readme                                | R Solution                     | 
 13   | [Readme](./Day13/day%213%20readme.md) | [Solution](./Day13/solution.R) | Paper Folding
 14   | [Readme](./Day14/day%214%20readme.md) | [Solution](./Day14/solution.R) | Polymer Extension (Transition states)
 15   | [Readme](./Day15/day%215%20readme.md) | [Solution](./Day15/solution.R) | Shortest Path on Grid
+16   | [Readme](./Day16/day%216%20readme.md) | [Solution](./Day16/solution.R) | Parse Packets within packets (hex to binary) and then compute
