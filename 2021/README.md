@@ -26,3 +26,4 @@ Day  | Readme                                | R Solution                     | 
 14   | [Readme](./Day14/day%214%20readme.md) | [Solution](./Day14/solution.R) | Polymer Extension (Transition states)
 15   | [Readme](./Day15/day%215%20readme.md) | [Solution](./Day15/solution.R) | Shortest Path on Grid
 16   | [Readme](./Day16/day%216%20readme.md) | [Solution](./Day16/solution.R) | Parse Packets within packets (hex to binary) and then compute
+17   | [Readme](./Day17/day%217%20readme.md) | [Solution](./Day17/solution.R) | Probe with (x,y) velocity. 
