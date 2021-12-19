@@ -23,7 +23,7 @@ for(i in 1:x_range[2]){
 
 # find possible y velocities
 y_poss <- c()
-for(i in y_range[1]:2000){
+for(i in y_range[1]:-y_range[1]){
     dist_y <- 0
     vel <- i
     reaches <- FALSE
