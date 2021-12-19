@@ -21,14 +21,10 @@ for(i in seq_along(starts)){
 
 # 24 orientations of matrices ---------------------------------------------
 
-# roll <- function(m) return(c(m[1], m[3], -m[2]))
-roll <- function(m) return(cbind(m[,1], m[,3], -m[,2]))
-
-# turn <- function(m) return(c(-m[2], m[1], m[3]))
-turn <- function(m) return(cbind(-m[,2], m[,1], m[,3]))
-
 rot24 <- function(m){
     
+    roll <- function(m) return(cbind(m[,1], m[,3], -m[,2]))
+    turn <- function(m) return(cbind(-m[,2], m[,1], m[,3]))
     res <- vector("list", 24)
     i <- 1
     
@@ -57,67 +53,83 @@ n1 <- nrow(og)
 location_scanners <- matrix(NA, length(scanners), 3)
 location_scanners[1,] <- c(0, 0, 0)
 
+# generate 24 rotations of each scanner
+scanner_rotations <- lapply(scanners, rot24)
+
+
+
 # keep doing this until we find location of all scanners
 while(anyNA(location_scanners)){
     
+    # for each scanner
     for(i in 2:length(scanners)){
         
+        # if we already know it's center, ignore
         if(!anyNA(location_scanners[i,])){
             next
         }
         
-        s24 <- rot24(scanners[[i]])
-        n2 <- nrow(scanners[[i]])
+        # get all 24 rotations for the scanner
+        s24 <- scanner_rotations[[i]]
+        
         n1 <- nrow(og)
-        cat(sprintf("\nScanner:%d",i))
+        n2 <- nrow(scanners[[i]])
+        
+        cat(sprintf("\nScanner:%d ",i))
+        
         rotation <- 0
         for(s in s24){
             rotation <- rotation + 1
-            res <- vector("list", n2)
+            # res <- apply(s, 1, \(x) t(t(og) - x), simplify = FALSE)
             
-            # for each beacon in s, calculate the difference from 
-            # every beacon in scanner 0 [og]
-            for(ii in 1:n2){
-                res[[ii]] <- vector("list", n1)
-                for(jj in 1:n1){
-                    res[[ii]][[jj]] <- og[jj,] - s[ii,]
-                }
-            }
+            # for each beacon in s, calculate the difference with each pair in og
+            # below takes each row of s (the apply(s, 1, ...))
+            # then subtracts it from og (the sweep(...))
+            # res is thus a list that contains:
+            # res[[1]] = og - s[1,] (this notation leads to errors, since R
+            # subtracts column wise) which is why we use sweep
             
-            # intersections
-            combos <- combn(n2, 2)
-            # combos <- gtools::permutations(n2, 2)
+            res <- apply(s, 1, \(x) sweep(og, 2, x, '-'), simplify = FALSE)
             
-            matches <- apply(combos, 2, simplify = FALSE, \(x) {
-                rr <- x[1]
-                cc <- x[2]
-                intersect(res[[ rr ]], res[[ cc ]])
-            })
+            # combine all these pair wise differences
+            # as.data.frame since duplicate on data.frame is faster
+            # duplicate on data.table is even faster so using converting to data.table
+            res_ <- data.table::as.data.table(do.call(rbind, res))
             
-            matches <- unique(unlist(matches, recursive = FALSE))
-            
-            if(length(matches) > 0){
-                cat("match found at rotation:")
-                cat(rotation)
-                for(match_vals in matches){
-                    # match_vals <- matches[[1]]
-                    locations <- c()
+            if(anyDuplicated(res_)){
+                
+                # if there are duplicates, that means we have found 
+                # situations where the same difference repeats
+                matches <- unique(res_[duplicated(res_),])
+                
+                # if there were matches, and more than one
+                # then for each match, we need to find the # of common beacons
+                for(m in 1:nrow(matches)){
                     
-                    found <- 0
-                    for(pt in 1:n2){
-                        idx <- which(sapply(res[[pt]], \(x) all(x == match_vals)))
-                        if(length(idx) > 0){
-                            found <- found + 1
-                            locations <- c(locations, pt)
-                        }
-                    }
+                    match_vals <- as.numeric(matches[m,])
                     
-                    if(found >= 12){
+                    cat("match found at rotation: ")
+                    cat(rotation)
+                    
+                    # add the difference to each row of s
+                    s <- sweep(s, 2, match_vals, '+')
+                    
+                    # combine this new 'adjusted' scanner locations with og
+                    # and search for duplicates to find matching beacons
+                    # below gives TRUE/FALSE, TRUE means duplicate and thus matching beacon
+                    found <- duplicated(rbind(og, s))
+                    
+                    if(sum(found) >= 12){
                         cat(" success!")
                         
-                        # find which point matches which
+                        # duplicated gives the first duplicate idx
+                        # since we have s afterwards, we subtract the # of beacons in og
+                        locations <- which(found) - n1 
+                        
+                        # store new scanner location
                         location_scanners[i,] <- match_vals
-                        s <- t(t(s) + match_vals)
+                        
+                        # store scanner orientation
                         scanners[[i]] <- s
                         
                         # add the new beacons not seen by og to matrix of beacons
@@ -127,7 +139,6 @@ while(anyNA(location_scanners)){
                     } else {
                         next
                     }
-                    
                 }
             }
         }
