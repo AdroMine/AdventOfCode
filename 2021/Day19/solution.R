@@ -2,7 +2,7 @@ setwd(dirname(rstudioapi::getActiveDocumentContext()$path))
 library(magrittr)
 
 # Read and Transform input ------------------------------------------------
-file_name <- "sample2.txt"
+file_name <- "input.txt"
 input <- readLines(file_name)
 starts <- grep("--- scanner", input)
 ends <- c(starts[-1] - 2, length(input))
@@ -122,6 +122,7 @@ while(anyNA(location_scanners)){
                         
                         # add the new beacons not seen by og to matrix of beacons
                         og <- rbind(og, s[-locations,])
+                        break
                         
                     } else {
                         next
@@ -133,4 +134,18 @@ while(anyNA(location_scanners)){
     }   
 }
 
+nrow(og)
 
+
+# Part 2
+N <- nrow(location_scanners)
+mh_combos <- expand.grid(x = 1:N, y = 1:N) %>% 
+    dplyr::filter(x != y)
+
+best <- 0
+for(i in 1:nrow(mh_combos)){
+    a <- location_scanners[mh_combos$x[i],]
+    b <- location_scanners[mh_combos$y[i],]
+    best <- max(best, sum(abs(a-b)))
+}
+best
