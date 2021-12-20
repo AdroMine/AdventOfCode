@@ -78,9 +78,13 @@ while(anyNA(location_scanners)){
         cat(sprintf("\nScanner:%d ",i))
         
         rotation <- 0
+        stop_ <- FALSE
         for(s in s24){
+            
+            if(stop_)
+                break
+            
             rotation <- rotation + 1
-            # res <- apply(s, 1, \(x) t(t(og) - x), simplify = FALSE)
             
             # for each beacon in s, calculate the difference with each pair in og
             # below takes each row of s (the apply(s, 1, ...))
@@ -120,7 +124,8 @@ while(anyNA(location_scanners)){
                     found <- duplicated(rbind(og, s))
                     
                     if(sum(found) >= 12){
-                        cat(" success!")
+                        cat(crayon::bgYellow(crayon::black("success")))
+                        # cat(" success!")
                         
                         # duplicated gives the first duplicate idx
                         # since we have s afterwards, we subtract the # of beacons in og
@@ -134,7 +139,7 @@ while(anyNA(location_scanners)){
                         
                         # add the new beacons not seen by og to matrix of beacons
                         og <- rbind(og, s[-locations,])
-                        break
+                        stop_ <- TRUE
                         
                     } else {
                         next

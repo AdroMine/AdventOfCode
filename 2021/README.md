@@ -29,3 +29,4 @@ Day  | Readme                                | R Solution                     | 
 17   | [Readme](./Day17/day%217%20readme.md) | [Solution](./Day17/solution.R) | Probe with (x,y) velocity. 
 18   | [Readme](./Day18/day%218%20readme.md) | [Solution](./Day18/solution.R) | Snail fish addition
 19   | [Readme](./Day19/day%219%20readme.md) | [Solution](./Day19/solution.R) | Scanners and beacons
+20   | [Readme](./Day20/day%220%20readme.md) | [Solution](./Day20/solution.R) | Image enhancement (infinite grid game of life)
