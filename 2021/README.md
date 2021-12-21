@@ -30,3 +30,4 @@ Day  | Readme                                | R Solution                     | 
 18   | [Readme](./Day18/day%218%20readme.md) | [Solution](./Day18/solution.R) | Snail fish addition
 19   | [Readme](./Day19/day%219%20readme.md) | [Solution](./Day19/solution.R) | Scanners and beacons
 20   | [Readme](./Day20/day%220%20readme.md) | [Solution](./Day20/solution.R) | Image enhancement (infinite grid game of life)
+21   | [Readme](./Day21/day%221%21readme.md) | [Solution](./Day21/solution.R) | Throwing dice game with multiple universes [DP]

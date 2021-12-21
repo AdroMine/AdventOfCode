@@ -3,17 +3,14 @@ library(magrittr)
 
 # Read and Transform input ------------------------------------------------
 file_name <- "input.txt"
-algo <- readLines(file_name, n = 1) %>% 
-    strsplit("") %>% `[[`(1)
-width <- readLines(file_name, n = 3) %>% 
-    `[`(3) %>% nchar
+algo <- readLines(file_name, n = 1) %>%  strsplit("") %>% `[[`(1)
+width <- readLines(file_name, n = 3)[3] %>% nchar
 
 input <- read.fwf(file_name, widths = rep(1, width), skip = 2, comment.char = "")
 
 # function to make (x,y) -> ("x#y#") (string rep)
-add_c <- function(xy) {
-    paste0('x', xy[1], 'y',xy[2])
-}
+# add_c <- function(xy) paste0('x', xy[1], 'y',xy[2]) 
+add_c <- function(xy) sprintf("x%dy%d", xy[1], xy[2])
 
 grid <- new.env()
 
@@ -24,9 +21,6 @@ for(i in 1:nrow(input)){
 }
 
 # Helper functions --------------------------------------------------------
-
-
-
 neighbours <- function(x,y){
     nbrs <- list(
         c(x-1,y-1), 
@@ -45,11 +39,10 @@ neighbours <- function(x,y){
 
 
 get_grid_val <- function(nm, e, step = 1){
-    if(step %% 2){
-        if(exists(nm, envir = e)) get(nm, envir = e) else '.'
-    } else {
-        if(exists(nm, envir = e)) get(nm, envir = e) else '#'
-    }
+    if(exists(nm, envir = e))
+        return(get(nm, envir = e))
+    
+    if(step %% 2) '.' else '#'
 }
 
 enhance <- function(g,step = 1){
@@ -90,7 +83,7 @@ enhance <- function(g,step = 1){
         x <- pts[i, 1]
         y <- pts[i, 2]
         nbrs <- neighbours(x,y)
-        val <- paste0(sapply(nbrs, get_grid_val, g, step = step), collapse = "")
+        val <- paste0(unlist(lapply(nbrs, get_grid_val, g, step = step)), collapse = "")
         num <- strtoi(chartr("#.","10", x = val), 2)
         stopifnot(!is.na(num))
         replacement <- algo[num + 1]
@@ -100,7 +93,7 @@ enhance <- function(g,step = 1){
     new_g
 }
 
-for(step in 1:50){
+for(step in 1:2){
     print(step)
     grid <- enhance(grid, step)
     
