@@ -30,7 +30,7 @@ Day  | Readme                                 | R Solution                     |
 18   | [Readme](./Day18/day%2018%20readme.md) | [Solution](./Day18/solution.R) | Snail fish addition
 19   | [Readme](./Day19/day%2019%20readme.md) | [Solution](./Day19/solution.R) | Scanners and beacons
 20   | [Readme](./Day20/day%2020%20readme.md) | [Solution](./Day20/solution.R) | Image enhancement (infinite grid game of life)
-21   | [Readme](./Day21/day%2021%21readme.md) | [Solution](./Day21/solution.R) | Throwing dice game with multiple universes [DP]
-22   | [Readme](./Day22/day%2022%22readme.md) | [Solution](./Day22/solution.R) | Cubes, cubes and cubes . . .
-23   | [Readme](./Day23/day%2023%23readme.md) | [Solution](./Day23/solution.R) | Move 4 different types of cubes to appropriate positions using min cost
-24   | [Readme](./Day24/day%2024%24readme.md) | [Solution](./Day24/solution.R) | Reverse engineer ALU code
+21   | [Readme](./Day21/day%2021%20readme.md) | [Solution](./Day21/solution.R) | Throwing dice game with multiple universes [DP]
+22   | [Readme](./Day22/day%2022%20readme.md) | [Solution](./Day22/solution.R) | Cubes, cubes and cubes . . .
+23   | [Readme](./Day23/day%2023%20readme.md) | [Solution](./Day23/solution.R) | Move 4 different types of cubes to appropriate positions using min cost
+24   | [Readme](./Day24/day%2024%20readme.md) | [Solution](./Day24/solution.R) | Reverse engineer ALU code
