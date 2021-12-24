@@ -45,3 +45,7 @@ We have four registers, w, x, y, and z. w is used to store the current input. x 
 6. If x!=1, then we add to stack. 
 
 There are 14 such codes. There are exactly 7 pushes to stack and 7 pops. To get a zero value for z at end, we need the stack to become empty. Thus every time z is to be divided by 25 in instruction 5 of a cycle, we want x to become 0. 
+
+A manual workout in Excel looks like the following:
+
+![excel screenshot](./excel_snap.png)
