@@ -34,3 +34,4 @@ Day  | Readme                                 | R Solution                     |
 22   | [Readme](./Day22/day%2022%20readme.md) | [Solution](./Day22/solution.R) | Cubes, cubes and cubes . . .
 23   | [Readme](./Day23/day%2023%20readme.md) | [Solution](./Day23/solution.R) | Move 4 different types of cubes to appropriate positions using min cost
 24   | [Readme](./Day24/day%2024%20readme.md) | [Solution](./Day24/solution.R) | Reverse engineer ALU code
+25   | [Readme](./Day25/day%2025%20readme.md) | [Solution](./Day25/solution.R) | Move > v in grid until stability. 
