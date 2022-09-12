@@ -1,4 +1,4 @@
-# Day 22: Reactor Reboot[Link](https://adventofcode.com/2021/day/22)
+# Day 23: Reactor Reboot[Link](https://adventofcode.com/2021/day/23)
 
 ### Question Summary
 - **Part 1** - Given a set of coordinates (that represent 1x1x1 cubes), with instructions of switching on and off, find out how many cubes are on after the instructions. 

@@ -2,7 +2,7 @@
 
 Repo containing my solutions for Advent of Code 2015 [URL](https://adventofcode.com/2015). 
 
-Trying to do all questions in R, using vectorisation as far as possible. 
+All questions in Python
 
 # Daywise problems
 

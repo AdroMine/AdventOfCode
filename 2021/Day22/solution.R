@@ -2,7 +2,7 @@ setwd(dirname(rstudioapi::getActiveDocumentContext()$path))
 library(purrr)
 library(collections)
 # Read and Transform input ------------------------------------------------
-file_name <- "sample3.txt"
+file_name <- "input.txt"
 input <- readLines(file_name)
 
 # Part 1
@@ -47,6 +47,7 @@ solve <- function(nums){
             res <- intersecting_volume(cubei,  cube)
             # if intersection, update the count intersection region
             # in the list of cubes
+            # subtract existing cube value to change sign (on/off)
             if(length(res) > 0)
                 dict2$set(res, dict2$get(res, 0) - all_cubes$get(cube))
         }
