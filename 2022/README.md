@@ -11,7 +11,7 @@ Day  | Readme                       | Py Solution                          | Pro
 01   | [Readme](./Day01/readme.md)  | [Solution](./Day01/d01_solution.R)   | Find group sums
 02   | [Readme](./Day02/readme.md)  | [Solution](./Day02/d02_solution.R)   | Play Rock, Paper, Scissors
 03   | [Readme](./Day03/readme.md)  | [Solution](./Day03/d03_solution.R)   | Find common letter in strings
-04   | [Readme](./Day04/readme.md)  | [Solution](./Day04/d04_solution.R)   | 
+04   | [Readme](./Day04/readme.md)  | [Solution](./Day04/d04_solution.R)   | Check if ranges are subset/overlapping
 05   | [Readme](./Day05/readme.md)  | [Solution](./Day05/d05_solution.R)   | 
 06   | [Readme](./Day06/readme.md)  | [Solution](./Day06/d06_solution.R)   | 
 07   | [Readme](./Day07/readme.md)  | [Solution](./Day07/d07_solution.R)   | 
