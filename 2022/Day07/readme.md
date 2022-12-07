@@ -20,8 +20,11 @@ So if we have structure like:
     - ...
 
 Then we will create a list that will contain:
+
 list['/'] - the top directory
+
 list['//a'] - the a directory (with full path in its name)
+
 list['//a/e'] - the e directory with again path from / to e in its name
 
 each list item is a list containing 3 items:
