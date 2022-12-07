@@ -119,3 +119,47 @@ sum(sapply(file_system[idx], function(x) x$size))
 available_space <- 7e7 - file_system[['/']]$size
 delete_required <- 3e7 - available_space
 unname(sort(all_dir_size[all_dir_size >= delete_required])[1])
+
+
+
+
+
+# Solution 2 --------------------------------------------------------------
+
+directories <- numeric()
+path <- c()
+
+for(line in input){
+  
+  temp <- strsplit(line, " ")[[1]]
+  
+  if(temp[2] == 'cd'){
+    if(temp[3] == '..'){
+      path <- head(path, -1)
+    } else {
+      path <- c(path, temp[3])
+    }
+  } else if(temp[2] == 'ls'){
+    next 
+  } else if(temp[1] == 'dir'){
+    next 
+  } else {
+    # files
+    size <- as.integer(temp[1])
+    for(i in seq_along(path)){
+      dir_name <- paste(path[1:i], collapse = '/')
+      if(!dir_name %in% names(directories)){
+        directories[dir_name] <- 0
+      }
+      directories[dir_name] <- directories[dir_name] + size
+    }
+  }
+}
+
+# Part 1
+sum(directories[directories <= 1e5])
+
+# Part 2
+used <- 7e7 - directories['/']
+to_free <- 3e7 - as.integer(used)
+min(directories[directories >= to_free])
