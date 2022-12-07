@@ -14,7 +14,7 @@ Day  | Readme                       | Py Solution                          | Pro
 04   | [Readme](./Day04/readme.md)  | [Solution](./Day04/d04_solution.R)   | Check if ranges are subset/overlapping
 05   | [Readme](./Day05/readme.md)  | [Solution](./Day05/d05_solution.R)   | Move objects between stacks
 06   | [Readme](./Day06/readme.md)  | [Solution](./Day06/d06_solution.R)   | Find first n distinct characters in string
-07   | [Readme](./Day07/readme.md)  | [Solution](./Day07/d07_solution.R)   | 
+07   | [Readme](./Day07/readme.md)  | [Solution](./Day07/d07_solution.R)   | File hierarchy from terminal output
 08   | [Readme](./Day08/readme.md)  | [Solution](./Day08/d08_solution.R)   | 
 09   | [Readme](./Day09/readme.md)  | [Solution](./Day09/d09_solution.R)   | 
 10   | [Readme](./Day10/readme.md)  | [Solution](./Day10/d10_solution.R)   | 
