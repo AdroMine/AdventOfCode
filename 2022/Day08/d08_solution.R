@@ -4,7 +4,8 @@ setwd(dirname(rstudioapi::getActiveDocumentContext()$path))
 file <- 'input.txt'
 widths <- nchar(readLines(file, n = 1))
 
-input <- read.fwf(file, rep(1, widths))
+# use matrix, not data.frame, matrix indexing and comparisons will be much faster
+input <- read.fwf(file, rep(1, widths)) |> as.matrix()
 R <- nrow(input)
 C <- ncol(input)
 
@@ -14,15 +15,15 @@ visible[, c(1,C)] <- TRUE
 
 
 # for each non edge item
-for(i in 2:(R-1)){
-  for(j in 2:(C-1)){
+for(i in 2L:(R-1L)){
+  for(j in 2L:(C-1L)){
     print(sprintf("i = %d, j = %d", i,j))
     
     pt <- input[i, j]
-    left_visible <- all(input[1:(i-1), j] < pt)
+    left_visible <- all(input[1L:(i-1L), j] < pt)
     right_visible <- all(input[(i+1):R, j] < pt)
-    top_visible <- all(input[i, 1:(j-1)] < pt)
-    bottom_visible <- all(input[i, (j+1):C] < pt)
+    top_visible <- all(input[i, 1L:(j-1L)] < pt)
+    bottom_visible <- all(input[i, (j+1L):C] < pt)
     visible[i,j ] <- left_visible || right_visible || top_visible || bottom_visible
     
   }
@@ -36,7 +37,6 @@ distance <- matrix(0, nrow = R, ncol = C) # viewing distance of each point
 
 for(i in 2:(R-1)){
   for(j in 2:(C-1)){
-    print(sprintf("i = %d, j = %d", i,j))
     
     pt <- input[i, j]
     .f <- function(x) x >= pt
