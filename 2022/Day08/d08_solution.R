@@ -9,44 +9,48 @@ input <- read.fwf(file, rep(1, widths)) |> as.matrix()
 R <- nrow(input)
 C <- ncol(input)
 
-visible <- matrix(FALSE, nrow = R, ncol = C)
-visible[c(1,R), ] <- TRUE
-visible[, c(1,C)] <- TRUE
 
+visible <- 2*R + 2*(C-2) # initially edges are visible
+best_distance <- 0
+
+.f <- function(x) !x
 
 # for each non edge item
 for(i in 2L:(R-1L)){
   for(j in 2L:(C-1L)){
-    print(sprintf("i = %d, j = %d", i,j))
     
     pt <- input[i, j]
-    left_visible <- all(input[1L:(i-1L), j] < pt)
-    right_visible <- all(input[(i+1):R, j] < pt)
-    top_visible <- all(input[i, 1L:(j-1L)] < pt)
-    bottom_visible <- all(input[i, (j+1L):C] < pt)
-    visible[i,j ] <- left_visible || right_visible || top_visible || bottom_visible
+    
+    # create boolean vector for horizontal & vertical directions
+    horizontal <- input[i, ] < pt
+    vertical   <- input[, j] < pt
+    
+    left  <- horizontal[1L:(j - 1L)] # equivalent to head(horizintal, j-1)
+    up    <- vertical  [1L:(i - 1L)] # same as head(vertical, i - 1)
+    
+    right <- horizontal[(j + 1L):C] # same as tail(horizontal, -j)
+    down  <- vertical  [(i + 1L):R] # same as tail(vertical, -i)
+    
+    # Part 1
+    visible <- visible + (all(left) || all(right) || all(up) || all(down))
+    
+    # Part 2
+    # use Position to find first FALSE element in vector, 
+    # for searching left and up, we look for the first element from the end
+    # for right/down, we look at first element from start
+    # adjust for current position and end of array
+    d_left  <- j - Position(.f, left,  right = TRUE,  nomatch = 1)
+    d_right <-     Position(.f, right, right = FALSE, nomatch = C - j)
+    d_up    <- i - Position(.f, up,    right = TRUE,  nomatch = 1)
+    d_down  <-     Position(.f, down,  right = FALSE, nomatch = R - i)
+    
+    score <- d_left * d_right * d_up * d_down
+    best_distance <- max(score, best_distance)
+    
     
   }
 }
 
-sum(visible)
+visible
+best_distance
 
-# Part 2
-
-distance <- matrix(0, nrow = R, ncol = C) # viewing distance of each point
-
-for(i in 2:(R-1)){
-  for(j in 2:(C-1)){
-    
-    pt <- input[i, j]
-    .f <- function(x) x >= pt
-    left_d   <- i - Position(.f, input[1:(i-1), j], right = TRUE, nomatch = 1)
-    bottom_d <- Position(.f, input[(i+1):R, j], right = FALSE, nomatch = R - i)
-    top_d    <- j - Position(.f, input[i, 1:(j-1)], right = TRUE, nomatch = 1)
-    right_d  <- Position(.f, input[i, (j+1):C], right = FALSE, nomatch = C - j)
-    distance[i,j ] <- left_d * right_d * top_d * bottom_d
-    
-  }
-}
-
-max(distance)
