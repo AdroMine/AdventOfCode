@@ -13,7 +13,7 @@ print_grid <- function(x){
 draw_letter <- function(cycle, x){
   pos <- c(-1, 0, 1) + x
   cycle <- (cycle-1) %% 40
-  if(any(pos %in% cycle)) '#' else '.'
+  if(any(pos %in% cycle)) '█' else ' '
 }
 
 counter <- c('noop' = 1, 'addx' = 2)
