@@ -12,7 +12,7 @@ print_grid <- function(x){
 }
 draw_letter <- function(cycle, x){
   pos <- c(-1, 0, 1) + x
-  cycle <- (cycle-1) %% 40
+  cycle <- (cycle) %% 40
   if(any(pos %in% cycle)) '█' else ' '
 }
 
@@ -29,15 +29,18 @@ for(line in input){
   
   for(j in seq_len(counter[inst])){
     
+    # draw first (so we don't need to subtract 1 from cycle)
+    screen[(cycle) %/% 40 + 1, (cycle) %% 40 + 1] <- draw_letter(cycle, x)
+    
+    # increase cycle and check if we need to add
     cycle <- cycle + 1
     if(cycle %in% req_cycles){
       ans <- ans + cycle * x
     }
-    # draw 
-    screen[(cycle-1) %/% 40 + 1, (cycle-1) %% 40 + 1] <- draw_letter(cycle, x)
     
   }
   if(inst == 'addx'){
+    # increase X
     x <- x + as.integer(line[2])
   }
   
