@@ -18,7 +18,7 @@ Day  | Readme                       | Py Solution                          | Pro
 08   | [Readme](./Day08/readme.md)  | [Solution](./Day08/d08_solution.R)   | Tree house (grid points height visible)
 09   | [Readme](./Day09/readme.md)  | [Solution](./Day09/d09_solution.R)   | Rope simulation
 10   | [Readme](./Day10/readme.md)  | [Solution](./Day10/d10_solution.R)   | CRT Screen 
-11   | [Readme](./Day11/readme.md)  | [Solution](./Day11/d11_solution.R)   | 
+11   | [Readme](./Day11/readme.md)  | [Solution](./Day11/d11_solution.R)   | Monkey throw stuff. 
 12   | [Readme](./Day12/readme.md)  | [Solution](./Day12/d12_solution.R)   | 
 13   | [Readme](./Day13/readme.md)  | [Solution](./Day13/d13_solution.R)   | 
 14   | [Readme](./Day14/readme.md)  | [Solution](./Day14/d14_solution.R)   | 
