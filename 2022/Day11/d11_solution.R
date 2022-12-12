@@ -73,9 +73,9 @@ play_keep_away <- function(rounds, monkeys, part2 = FALSE){
           monkeys[[monkey$t_false]]$items <- c(monkeys[[monkey$t_false]]$items, 
                                                new_worry)
         }
-        # remove from orig list, not current monkey item
-        monkeys[[m]]$items <- monkeys[[m]]$items[-1]
       }
+      # remove from orig list, not current monkey item
+      monkeys[[m]]$items <- c()
       inspections[m] <- inspections[m] + length(monkey$items)
     }
   }
