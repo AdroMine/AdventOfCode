@@ -52,26 +52,16 @@ sum(which(right_order))
 
 
 # Part 2 
-packets <- c(unlist(input, recursive = FALSE), list(list(2)), list(list(6)))
 
-N <- length(packets)
-# bubble sort packets
-for(i in 1:(N-1)){
-    for(j in 1:(N-i)){
-        if(compare(packets[[j]], packets[[j+1]]) == -1){
-            temp <- packets[[j+1]]
-            packets[[j+1]] <- packets[[j]]
-            packets[[j]] <- temp
-        }
-    }
-}
-
-part2 <- 1
+p2 <- list(list(2))
+p6 <- list(list(6))
+l2 <- 1 # min can be 1
+l6 <- 2 # min can be 2
+packets <- unlist(input, recursive = FALSE)
 for(i in seq_along(packets)){
-    pkt <- unlist(packets[[i]])
-    if(length(pkt) == 1 && pkt %in% c(2, 6)){
-        part2 = part2 * i
-    }
+    if(compare(p2, packets[[i]]) == -1) l2 <- l2 + 1
+    if(compare(p6, packets[[i]]) == -1) l6 <- l6 + 1
 }
-part2
+
+l2*l6
 

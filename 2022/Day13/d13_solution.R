@@ -11,7 +11,7 @@ input <- readr::read_file(file) |>
     # separate pairs
     lapply(function(x) strsplit(x, '\n')) %>% 
     
-    unlist(recursive = FALSE)
+    unlist(recursive = FALSE) %>% 
    
     # convert to list of lists
     lapply(function(l) lapply(l, jsonlite::parse_json))
