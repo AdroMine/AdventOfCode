@@ -1,8 +1,8 @@
 setwd(dirname(rstudioapi::getActiveDocumentContext()$path))
 library(magrittr)
 
-file <- 'sample.txt'
-# file <- 'input.txt'
+# file <- 'sample.txt'
+file <- 'input.txt'
 input <- readr::read_file(file) |>
     gsub("\r", "", x = _) |>
     # divide into pairs
@@ -11,8 +11,8 @@ input <- readr::read_file(file) |>
     # separate pairs
     lapply(function(x) strsplit(x, '\n')) %>% 
     
-    # parse_json fails without this eval somehow
-    lapply(function(x) eval(parse(text = x))) %>% 
+    unlist(recursive = FALSE)
+   
     # convert to list of lists
     lapply(function(l) lapply(l, jsonlite::parse_json))
 
@@ -70,21 +70,9 @@ compare <- function(left, right){
 }
 
 right_order <- vector(length = length(input))
-new_input <- input
 for(i in seq_along(input)){
-    
     pair <- input[[i]]
-    
-    res <- compare(pair[1], pair[2]) 
-    if(res == 1){
-        right_order[i] <- TRUE
-    } else if(res == -1){
-        new_input[[i]] <- c(pair[2], pair[1])
-        
-    } else {
-        stop("This shouldn't have happened?")
-    }
-    
+    right_order[i] <- compare(pair[1], pair[2]) == 1
 }
 
 sum(which(right_order))
@@ -115,4 +103,21 @@ bubble_sort <- function(packets){
     packets
 }
 
+find_decoder_key <- function(packets){
+    res <- c()
+    for(i in seq_along(packets)){
+        pkt <- packets[[i]]
+        if( (length(pkt) == 1)){
+            item <- pkt[[1]]
+            if(length(item) == 1 && item %in% c(2, 6)){
+                res <- c(res, i)
+            }
+        }
+    }
+    res
+}
+
+# sort packets
 packets <- bubble_sort(new_input)
+
+prod(find_decoder_key(packets))

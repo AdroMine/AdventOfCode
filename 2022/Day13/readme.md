@@ -10,3 +10,10 @@ For Part1, first parse as json to convert to lists of list. Then recursively go 
 
 For part2, realise that we just need to 'sort' the packets, where comparison between two items is using the provided rules. So just use bubble sort, while comparing using the function created in part 1.
 
+
+### Solution 2
+
+This uses S4 method dispatch system where it overloads a function `compare` to handle [list, list], [number, number], [list, number], and [number, list]. Then we can just call compare function on two packets without having to write if/else to check type. 
+
+[Solution2](./d13_S4.R)
+
