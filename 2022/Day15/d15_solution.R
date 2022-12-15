@@ -192,3 +192,73 @@ for(y in 0:space){
 
 
 
+# Solution 2 ------------------------------------------------------------------------
+
+# For any given scanner, we have 4 line segments along the edges of the diamond formed by
+# its detection radius. If it can detect d distance, then we have the following 4 points
+# along the edge, which can be used to form 4 lines:
+# Points if scanner is (p, q) (detection range r)
+# Left: (p-r-1, q)
+# Up  : (p    , q + r + 1)
+# Down: (p    , q - r - 1)
+# Right:(p+r+1, q)
+
+# Line segment between two points (x1, y1), (x2, y2): y-y1 = (y2-y1)/(x2-x1) (x-x1)
+
+# Line segment Left/Up
+# y - q = (q + r + 1 - q)/(p - p + r + 1))(x - p + r + 1))
+# y = x + (q - p + r + 1) 
+
+# Line segment right/down
+# y - q = (r+1)/(r+1)(x-p-r-1)
+# y = x + (q - p - r - 1)
+
+# the above 2 lines are parallel
+# ditto for below 2 lines
+
+# Line segment left/down
+# y - q = (-r-1)/(r+1)(x-p + r+ 1)
+# y = -x + (q + p - r - 1)
+
+# Line segment up/right
+# y - q - r -1 = (-r-1)/(r+1)(x-p)
+# y = -x + (q + p + r + 1)
+
+# Intersection of two lines y = x+a, and y = x + b occurs at ( (b-a)/2,  (a+b)/2  )
+
+# we can go through all scanners and note down the 'a' and 'b' coefficients for each scanner
+# our beacon will exist where at least lines from two scanners intersect
+
+coeffs1 <- c()
+coeffs2 <- c()
+scanners <- list()
+boundary <- 4e6
+for(line in input){
+    x = line[1]; y = line[2]; 
+    r = abs(line[3] - line[1]) + abs(line[4] - line[2])
+    coeffs1 <- c(coeffs1, y - x + r + 1, y - x - r - 1)
+    coeffs2 <- c(coeffs2, y + x + r + 1, y + x - r - 1)
+    scanners <- c(scanners, list(c(x, y, r)))
+}
+
+man_d <- function(p1, p2) abs(p1[1] - p2[1]) + abs(p1[2] - p2[2])
+
+found <- FALSE
+for(a in coeffs1){
+    if(found) break
+    for(b in coeffs2){
+        ipt <- c( (b-a) %/% 2, (a+b)%/%2)
+        if(all(ipt>=0 & ipt<=boundary)){
+            res <- vapply(scanners, \(x){
+                man_d(x[1:2], ipt) > x[3]
+            }, TRUE)
+            if(all(res)){
+                print(ipt[1]*boundary + ipt[2])
+                found <- TRUE
+                break
+            }
+        }
+    }
+}
+
+print(n)
