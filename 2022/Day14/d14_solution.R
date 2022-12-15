@@ -7,32 +7,21 @@ input <- readLines('input.txt')
 grid <- matrix(FALSE, 1000, 1000)
 
 for(line in input){
-    
     paths <- strsplit(line, " -> ")[[1]]
     paths <- lapply(paths, function(x) as.integer(strsplit(x, ",")[[1]]))
     n <- length(paths)
     for(i in seq_len(n-1)){
         pt1 <- paths[[i]] + 1
         pt2 <- paths[[i+1]] + 1
-        
-        # horizontal line
-        if(pt1[1] == pt2[1]){
-            for(j in pt1[2]:pt2[2]) 
-                grid[j, pt1[1]] <- TRUE
-        } else {
-            # vertical line
-            for(j in pt1[1]:pt2[1]) 
-                grid[pt1[2], j] <- TRUE
-        }
+        grid[pt1[2]:pt2[2], pt1[1]:pt2[1]] <- TRUE
     }
 }
 
 steps_pos <- list(
-    c(+1L, 0), # down
+    c(+1L, 0),  # down
     c(+1L,-1L), # down-left
-    c(+1L,+1L) # down right
+    c(+1L,+1L)  # down right
 )
-
 
 simulate_sand <- function(grid, part2 = FALSE){
     
@@ -41,16 +30,14 @@ simulate_sand <- function(grid, part2 = FALSE){
     # find extremes of grid
     ymax <- max(which(grid, arr.ind = TRUE)[,1])
     
+    # set floor for part 2
     if(part2) {
-        # set floor for part 2
         ymax <- ymax + 2
         grid[ymax, ] <- TRUE
     }
-    
     # horizontal extremes
-    rocksx <- which(grid, arr.ind = TRUE)[,2]
-    xmin <- min(rocksx)
-    xmax <- max(rocksx)
+    # rocksx <- which(grid, arr.ind = TRUE)[,2]
+    # xmin <- min(rocksx) ; xmax <- max(rocksx)
     
     abyss_fall <- FALSE
     while(TRUE){
@@ -64,7 +51,10 @@ simulate_sand <- function(grid, part2 = FALSE){
             # check if sand has fallen down the abyss, no more sand can collect
             # if sand goes left or right of last rock, will fall into abyss
             # similarly if goes below last rock, will again fall down abyss
-            if ((sand[2L] > xmax)  ||  (sand[2L] < xmin) ||  (sand[1L] > ymax)){
+            
+            # can only check if sand has gone below as well
+            # if ((sand[2L] > xmax)  ||  (sand[2L] < xmin) ||  (sand[1L] > ymax)){
+            if ((sand[1L] > ymax)){
                 abyss_fall <- TRUE
                 break
             }
