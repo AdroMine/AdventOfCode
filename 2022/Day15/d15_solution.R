@@ -56,9 +56,6 @@ man_distances <- sapply(input, function(x) abs(x[3]-x[1]) + abs(x[4]-x[2]))
 sensor_x <- sapply(input, \(x) x[1])
 sensor_y <- sapply(input, \(x) x[2])
 ord <- order(sensor_x)
-sensor_x <- sensor_x[ord]
-sensor_y <- sensor_y[ord]
-man_distances <- man_distances[ord]
 
 
 
@@ -82,6 +79,7 @@ unionInterval <- function(p1, p2){
 isOverlap <- function(p1, p2){
     p2[2] >= p1[1] && p2[1] <= p1[1]
 }
+
 N <- length(input)
 
 gen_intervals <- function(y, sx, sy, space){
@@ -116,6 +114,22 @@ merge_intervals <- function(ints){
     # no solution in this line
     return(-1)
 }
+
+space <- 4e6
+for(y in 0:space){
+    if(!y %% 1e5) print(y)
+    
+    intervals <- gen_intervals(y, sensor_x, sensor_y, space)
+    res <- merge_intervals(intervals)
+    if(res == -1) next 
+    else {
+        print(res * space + y)
+        break
+    }
+}
+
+
+
 
 find_intervals <- function(y, sx, sy, space){
     
