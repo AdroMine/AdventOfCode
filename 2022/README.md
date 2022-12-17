@@ -23,8 +23,8 @@ Day  | Readme                       | Py Solution                          | Pro
 13   | [Readme](./Day13/readme.md)  | [Solution](./Day13/d13_solution.R)   | Sort packets
 14   | [Readme](./Day14/readme.md)  | [Solution](./Day14/d14_solution.R)   | Simulate falling sand
 15   | [Readme](./Day15/readme.md)  | [Solution](./Day15/d15_solution.R)   | Sensors, beacons, Intervals
-16   | [Readme](./Day16/readme.md)  | [Solution](./Day16/d16_solution.R)   | 
-17   | [Readme](./Day17/readme.md)  | [Solution](./Day17/d17_solution.R)   | 
+16   | [Readme](./Day16/readme.md)  | [Solution](./Day16/d16_solution.R)   | Exploding volcano, open valves with elephant
+17   | [Readme](./Day17/readme.md)  | [Solution](./Day17/d17_solution.R)   | Tetris
 18   | [Readme](./Day18/readme.md)  | [Solution](./Day18/d18_solution.R)   | 
 19   | [Readme](./Day19/readme.md)  | [Solution](./Day19/d19_solution.R)   | 
 20   | [Readme](./Day20/readme.md)  | [Solution](./Day20/d20_solution.R)   | 
