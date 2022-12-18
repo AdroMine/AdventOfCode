@@ -14,3 +14,6 @@ For part 2, for each point use flood fill with termination condition of having r
 
 To speed up flood-fill, cache the points from which we can reach outside and those from which we can't. 
 
+Method 2
+
+Instead of flood filling from inside to outside, flood fill from outside (min point) to inside. In this case we need to flood fill only once. Same speed as method1 with cache. 

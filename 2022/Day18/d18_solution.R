@@ -25,8 +25,8 @@ points <- df_to_row_list(input)
 
 # Part 1 & 2 
 
-cmax <- c(max(input$x), max(input$y), max(input$z)) + 1
-cmin <- c(min(input$x), min(input$y), min(input$z)) - 1
+cmax <- c(max(input$x), max(input$y), max(input$z)) + 1L
+cmin <- c(min(input$x), min(input$y), min(input$z)) - 1L
 
 # can also use lists, but increasing their size within the loop slows down 
 # operations. Compared to dict (takes around 2 secs), lists takes around 7-8 seconds
@@ -88,6 +88,60 @@ for(i in seq_along(points)){
 
 area1 # part1 
 area2 # part2
+
+
+
+
+# Method 2 - # Flood fill from outside to inside 
+Q <- collections::queue()
+
+# ensure cmin is integer and not numeric, otherwise comparison with points fails
+Q$push(cmin)
+outside <- collections::dict()
+outside$set(cmin, 0)
+
+while(Q$size()){
+    
+    item <- Q$pop()
+    
+    for(nxt in neighbours(item)){
+        if(list(nxt) %fin% points) next
+        if(outside$has(nxt)) next
+        if(any(nxt > cmax) || any(nxt < cmin)) next
+        
+        Q$push(nxt)
+        outside$set(nxt, 0)
+    }
+}
+
+area3 <- 0
+for(p in points){
+    for(nxt in neighbours(p)){
+        if(outside$has(nxt)){
+            area3 <- area3 + 1
+        }
+    }
+}
+
+area3
+
+# almost same speed as method 1
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
