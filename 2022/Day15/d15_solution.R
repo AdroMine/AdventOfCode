@@ -247,10 +247,13 @@ found <- FALSE
 for(a in coeffs1){
     if(found) break
     for(b in coeffs2){
+        # intersection point of two lines
         ipt <- c( (b-a) %/% 2, (a+b)%/%2)
+        # check within boundary
         if(all(ipt>=0 & ipt<=boundary)){
+            # check if any scanner can scan this location
             res <- vapply(scanners, \(x){
-                man_d(x[1:2], ipt) > x[3]
+                man_d(x[1:2], ipt) > x[3] # x[3] is scanner radius
             }, TRUE)
             if(all(res)){
                 print(ipt[1]*boundary + ipt[2])
