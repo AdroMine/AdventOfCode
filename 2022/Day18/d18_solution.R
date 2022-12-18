@@ -1,17 +1,15 @@
 setwd(dirname(rstudioapi::getActiveDocumentContext()$path))
 library(magrittr)
-library(dplyr)
+library(fastmatch)
 
 input <- read.table("input.txt", sep = ",", col.names = c('x', 'y', 'z'))
 
-input <- mutate(input, id = row_number())
-library(fastmatch)
-
 df_to_row_list <- function(tbl){
-    unlist(apply(tbl[, c('x', 'y', 'z')], 1, \(x) list(as.integer(x))), recursive = FALSE)
+    unlist(apply(tbl, 1, \(x) list(as.integer(x))), recursive = FALSE)
 }
 
 # @param point - vector of size 3, denoting x,y,z values
+# @param xyz - 1/2/3 corresponding to x/y/z coordinate
 get_nbr <- function(point, xyz){
     point1 <- point2 <- point
     point1[xyz] <- point[xyz] + 1L
@@ -23,7 +21,6 @@ neighbours <- function(point){
     c(get_nbr(point, 1L), get_nbr(point, 2L), get_nbr(point, 3L))
 }
 
-
 points <- df_to_row_list(input)
 
 # Part 1 & 2 
@@ -31,14 +28,16 @@ points <- df_to_row_list(input)
 cmax <- c(max(input$x), max(input$y), max(input$z)) + 1
 cmin <- c(min(input$x), min(input$y), min(input$z)) - 1
 
-outside <- collections::dict()
+# can also use lists, but increasing their size within the loop slows down 
+# operations. Compared to dict (takes around 2 secs), lists takes around 7-8 seconds
+out <- collections::dict()
 not_out <- collections::dict()
 
 is_free <- function(point){
     
     point <- list(point)
     
-    if(outside$has(point)) return(TRUE)
+    if(out$has(point)) return(TRUE)
     if(not_out$has(point)) return(FALSE)
     
     Q <- collections::queue()
@@ -63,7 +62,7 @@ is_free <- function(point){
             # through any of the points
             if(any(n > cmax) || any(n < cmin)) {
                 # mark all these points as leading to outside
-                for(p1 in visited$keys()) outside$set(p1, 0)
+                for(p1 in visited$keys()) out$set(p1, 0)
                 return(TRUE)
             }
             Q$push(list(n))
@@ -94,9 +93,14 @@ area2 # part2
 
 
 
-
 # Part 1 tidyverse style
-tidyr::crossing(one = input, two = rename_with(input, ~paste0(., '1'))) %>% 
+
+library(dplyr)
+library(tidyr)
+input %>% 
+    mutate(id =row_number()) %>% 
+    tidyr::crossing(one = ., two = rename_with(., ~paste0(., '1'))) %>% 
+# tidyr::crossing(one = input, two = rename_with(input, ~paste0(., '1'))) %>% 
     tidyr::unnest(cols = c(one, two)) %>% 
     filter(id != id1) %>% 
     dplyr::mutate(
