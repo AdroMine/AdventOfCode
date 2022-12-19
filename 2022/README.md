@@ -26,7 +26,7 @@ Day  | Readme                       | Py Solution                          | Pro
 16   | [Readme](./Day16/readme.md)  | [Solution](./Day16/d16_solution.R)   | Exploding volcano, open valves with elephant
 17   | [Readme](./Day17/readme.md)  | [Solution](./Day17/d17_solution.R)   | Tetris
 18   | [Readme](./Day18/readme.md)  | [Solution](./Day18/d18_solution.R)   | Cubes surface area. External/Internal
-19   | [Readme](./Day19/readme.md)  | [Solution](./Day19/d19_solution.R)   | 
+19   | [Readme](./Day19/readme.md)  | [Solution](./Day19/d19_solution.R)   | Ore extraction maximisation 
 20   | [Readme](./Day20/readme.md)  | [Solution](./Day20/d20_solution.R)   | 
 21   | [Readme](./Day21/readme.md)  | [Solution](./Day21/d21_solution.R)   | 
 22   | [Readme](./Day22/readme.md)  | [Solution](./Day22/d22_path_find.R)  | 
