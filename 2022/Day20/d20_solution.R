@@ -34,19 +34,18 @@ for(i in seq_along(res)){
 
 zero_idx <- which(res == 0)
 
+# Part 1 
 sum(get_n(res, c(1000, 2000, 3000), zero_idx))
 
-
+# Part 2
 dec_key <- 811589153
 res <- input * (dec_key)
 N <- length(res)
 names(res) <- asc(1:length(res))
 for(loop in 1:10){
-    # print(loop)
-    # print(length(res))
-    # stopifnot(!anyNA(res))
-    for(i in seq_along(res)){
-        cur_pos <- which(asc(i) == names(res))
+    print(loop)
+    for(i in asc(1:N)){
+        cur_pos <- which(i == names(res))
         move <- res[asc(i)]
         
         new_pos <- (cur_pos - 1L + move) %% (N-1) + 1
@@ -63,4 +62,4 @@ for(loop in 1:10){
     }   
 }
 
-get_n(res, c(1000, 2000, 3000), which(res == 0))
+sum(get_n(res, c(1000, 2000, 3000), which(res == 0)))
