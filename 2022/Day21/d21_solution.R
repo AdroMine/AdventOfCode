@@ -28,8 +28,8 @@ root_key <- which(input$V1 == 'root')
 input[root_key, 2]
 
 # Part 2 
-input <- read.table('sample.txt', sep = ":")
-# input <- read.table('input.txt', sep = ":")
+# input <- read.table('sample.txt', sep = ":")
+input <- read.table('input.txt', sep = ":")
 
 input[] <- lapply(input[], trimws)
 strs <- setNames(input$V2, input$V1)
@@ -69,3 +69,8 @@ while(TRUE){
     }
 }
 
+root
+
+.f <- function(X) eval(parse(text = root))
+
+uniroot(.f, interval = c(-1e13, 1e13))
