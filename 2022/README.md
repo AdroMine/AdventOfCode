@@ -31,6 +31,6 @@ Day  | Readme              |   Py Solution                        | Problem summ
 21   | [Readme](./Day21/)  | [Solution](./Day21/d21_solution.R)   | Solve equation
 22   | [Readme](./Day22/)  | [Solution](./Day22/d22_solution.R)   | Cube Rotation!
 23   | [Readme](./Day23/)  | [Solution](./Day23/d23_solution.R)   | Game of Life with cyclical rules
-24   | [Readme](./Day24/)  | [Solution](./Day24/d24_solution.R)   | 
-25   | [Readme](./Day25/)  | [Solution](./Day25/d25_solution.R)   | 
+24   | [Readme](./Day24/)  | [Solution](./Day24/d24_solution.R)   | Path finding in blizzard
+25   | [Readme](./Day25/)  | [Solution](./Day25/d25_solution.R)   | Base 5 numbers
 
