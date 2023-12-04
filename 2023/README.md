@@ -11,7 +11,7 @@ Day  | Readme                      | Solution                              | Pro
 01   | [Readme](./Day01/readme.md) | [Solution](./Day01/solution.R)        | Extract digits/numbers from string
 02   | [Readme](./Day02/readme.md) | [Solution](./Day02/solution.R)        | Draw coloured balls from bag
 03   | [Readme](./Day03/readme.md) | [Solution](./Day03/solution.R)        | 2D Grid, continuous numbers surrounding '*'
-04   | [Readme](./Day04/readme.md) | [Solution](./Day04/solution.R)        | 
+04   | [Readme](./Day04/readme.md) | [Solution](./Day04/solution.R)        | Scratch cards and winning numbers
 05   | [Readme](./Day05/readme.md) | [Solution](./Day05/solution.R)        | 
 06   | [Readme](./Day06/readme.md) | [Solution](./Day06/solution.R)        | 
 07   | [Readme](./Day07/readme.md) | [Solution](./Day07/solution.R)        | 
