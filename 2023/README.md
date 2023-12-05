@@ -12,7 +12,7 @@ Day  | Readme                      | Solution                              | Pro
 02   | [Readme](./Day02/readme.md) | [Solution](./Day02/solution.R)        | Draw coloured balls from bag
 03   | [Readme](./Day03/readme.md) | [Solution](./Day03/solution.R)        | 2D Grid, continuous numbers surrounding '*'
 04   | [Readme](./Day04/readme.md) | [Solution](./Day04/solution.R)        | Scratch cards and winning numbers
-05   | [Readme](./Day05/readme.md) | [Solution](./Day05/solution.R)        | 
+05   | [Readme](./Day05/readme.md) | [Solution](./Day05/solution.R)        | Seeds, mapping, intervals
 06   | [Readme](./Day06/readme.md) | [Solution](./Day06/solution.R)        | 
 07   | [Readme](./Day07/readme.md) | [Solution](./Day07/solution.R)        | 
 08   | [Readme](./Day08/readme.md) | [Solution](./Day08/solution.R)        | 
