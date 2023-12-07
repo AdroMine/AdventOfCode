@@ -12,6 +12,13 @@ Using ordered factors to compare individual cards in a card.
 
 Sorting is bubble sort, but is really slow for now. 
 
+# Solution using character replacements and `order` function. 
+
+`order` function can take multiple arguments to sort on, so pass it rank and then the card but with face cards replaced with character values that enable correct comparison. In this case I replaced 'A' with 'Z' and 'K' with 'Y' and so on which makes A > K in character comparison (Z > Y).
+
+Passing this replaced version of the hand enables easier comparison. 
+
+
 
 # New solution enabling `sort` function
 

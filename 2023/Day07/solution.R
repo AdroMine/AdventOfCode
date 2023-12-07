@@ -58,6 +58,48 @@ card_type <- function(card, part2 = FALSE){
 }
 
 
+# Even smaller solution, using order and character replacements
+
+hands <- lapply(input, \(x) {
+  hand <- strsplit(x[[1]], '')[[1]]
+  
+  # replace AKQJT with characters to enable sorting in right order using character sorting
+  hand1 <- chartr(old = "AKQJT", 'ZYXWV', x = x[[1]])
+  # same but for part 2, where we give J rank less than 2
+  hand2 <- chartr(old = "AKQJT", 'ZYX1V', x = x[[1]])
+  list(hand1 = hand1,
+       hand2 = hand2, 
+       bid = as.numeric(x[[2]]),
+       rank1 = card_type(hand, part2 = FALSE),
+       rank2 = card_type(hand, part2 = TRUE)
+  )
+})
+
+# part 1
+hands_order <- order(sapply(hands, `[[`, 'rank1'), 
+                     sapply(hands, `[[`, 'hand1'))
+
+sum(sapply(hands[hands_order], `[[`, 'bid') * seq_along(hands))
+
+
+# part 2
+hands_order <- order(sapply(hands, `[[`, 'rank2'), 
+                     sapply(hands, `[[`, 'hand2'))
+
+sum(sapply(hands[hands_order], `[[`, 'bid') * seq_along(hands))
+
+
+
+
+
+
+
+
+
+
+
+# Solution with custom classes
+
 # ordered factor levels for each card
 card_order <- c('A', 'K', 'Q', 'J', 'T', as.character(9:2))
 
