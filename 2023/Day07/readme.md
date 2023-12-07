@@ -12,3 +12,9 @@ Using ordered factors to compare individual cards in a card.
 
 Sorting is bubble sort, but is really slow for now. 
 
+
+# New solution enabling `sort` function
+
+We can create a list of hands and their bids and assign a custom class to this list. For this custom class we need to define 3 functions: subset `[`, `>` and `==`. With these 3 functions defined, `sort` function will work. 
+
+Much faster. 
