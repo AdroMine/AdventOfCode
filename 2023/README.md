@@ -15,7 +15,7 @@ Day  | Readme                      | Solution                              | Pro
 05   | [Readme](./Day05/readme.md) | [Solution](./Day05/solution.R)        | Seeds, mapping, intervals
 06   | [Readme](./Day06/readme.md) | [Solution](./Day06/solution.R)        | Race, distance travelled.
 07   | [Readme](./Day07/readme.md) | [Solution](./Day07/solution.R)        | Custom poker
-08   | [Readme](./Day08/readme.md) | [Solution](./Day08/solution.R)        | 
+08   | [Readme](./Day08/readme.md) | [Solution](./Day08/solution.R)        | Node Travel, single + multiple together. 
 09   | [Readme](./Day09/readme.md) | [Solution](./Day09/solution.R)        | 
 10   | [Readme](./Day10/readme.md) | [Solution](./Day10/solution.R)        | 
 11   | [Readme](./Day11/readme.md) | [Solution](./Day11/solution.R)        | 
