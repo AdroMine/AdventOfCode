@@ -51,7 +51,7 @@ sapply(input, \(line){
     part2 <- c(part2, temp[1])
   }
   part1 <- vapply(part1, tail, FUN.VALUE = 1, 1) |> sum()
-  part2 <- vapply(part2, head, FUN.VALUE = 1, 1) |> rev() |> Reduce(\(x,y) y-x, x = _)
+  part2 <- vapply(part2, head, FUN.VALUE = 1, 1) |> Reduce(`-`, x = _, right = TRUE)
   
   c(part1, part2)
   
@@ -59,3 +59,4 @@ sapply(input, \(line){
   # because of sapply we get matrix of 2 rows where all part1 are in first row and part2
   # in 2nd row
   rowSums()
+
