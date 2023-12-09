@@ -6,3 +6,8 @@
 
 ### Solution summary 
 
+
+First two are simple methods. 
+
+A mathematical solution involves using [Lagrange Interpolation](https://mathworld.wolfram.com/LagrangeInterpolatingPolynomial.html). The given problem can be solved using this. [Video explanation](https://www.youtube.com/watch?v=4AuV93LOPcE)
+

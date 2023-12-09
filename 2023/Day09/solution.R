@@ -60,3 +60,31 @@ sapply(input, \(line){
   # in 2nd row
   rowSums()
 
+
+
+
+# this is the coolest method!
+# We can also use Lagrange Interpolating polynomial given the structure of the problem 
+# to find the polynomial function that fits those points, then predict for point N+1 and 0
+
+lagrange <- function(x0, y0) {
+  f <- function (x) {
+    sum(y0 * sapply(seq_along(x0), \(j) {
+      prod(x - x0[-j])/prod(x0[j] - x0[-j])
+    }))
+  }
+  Vectorize(f, "x")
+}
+
+sapply(input, \(line){
+  
+  # find polynomial function
+  lagrange_fn <- lagrange(seq_along(line), line)
+  
+  # find value at n+1 and 0
+  c(
+    lagrange_fn(length(line) + 1),
+    lagrange_fn(0)
+  )
+  
+}) |> rowSums()
