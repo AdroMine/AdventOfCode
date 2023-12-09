@@ -16,7 +16,7 @@ Day  | Readme                      | Solution                              | Pro
 06   | [Readme](./Day06/readme.md) | [Solution](./Day06/solution.R)        | Race, distance travelled.
 07   | [Readme](./Day07/readme.md) | [Solution](./Day07/solution.R)        | Custom poker
 08   | [Readme](./Day08/readme.md) | [Solution](./Day08/solution.R)        | Node Travel, single + multiple together. 
-09   | [Readme](./Day09/readme.md) | [Solution](./Day09/solution.R)        | 
+09   | [Readme](./Day09/readme.md) | [Solution](./Day09/solution.R)        | Differences in numbers
 10   | [Readme](./Day10/readme.md) | [Solution](./Day10/solution.R)        | 
 11   | [Readme](./Day11/readme.md) | [Solution](./Day11/solution.R)        | 
 12   | [Readme](./Day12/readme.md) | [Solution](./Day12/solution.R)        | 
