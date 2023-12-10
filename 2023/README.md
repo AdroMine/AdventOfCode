@@ -17,7 +17,7 @@ Day  | Readme                      | Solution                              | Pro
 07   | [Readme](./Day07/readme.md) | [Solution](./Day07/solution.R)        | Custom poker
 08   | [Readme](./Day08/readme.md) | [Solution](./Day08/solution.R)        | Node Travel, single + multiple together. 
 09   | [Readme](./Day09/readme.md) | [Solution](./Day09/solution.R)        | Differences in numbers
-10   | [Readme](./Day10/readme.md) | [Solution](./Day10/solution.R)        | 
+10   | [Readme](./Day10/readme.md) | [Solution](./Day10/solution.R)        | Path finding, pipe maze. 
 11   | [Readme](./Day11/readme.md) | [Solution](./Day11/solution.R)        | 
 12   | [Readme](./Day12/readme.md) | [Solution](./Day12/solution.R)        | 
 13   | [Readme](./Day13/readme.md) | [Solution](./Day13/solution.R)        | 
