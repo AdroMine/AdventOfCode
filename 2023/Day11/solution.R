@@ -12,6 +12,8 @@ start <- which(input == '#', arr.ind = TRUE)
 n_pts <- nrow(start)
 combinations <- combn(n_pts, 2)
 
+between <- function(x, start, end) x >= start & x <= end
+
 sum_distances <- function(input, times){
   dist <- 0
   for(i in 1:ncol(combinations)){
@@ -23,8 +25,8 @@ sum_distances <- function(input, times){
     cols <- c(min(st[2], ed[2]), max(st[2], ed[2]))
     
     # add as many rows as needed to be added
-    add_r <- sum(dplyr::between(row_add, rows[1], rows[2])) * times
-    add_c <- sum(dplyr::between(col_add, cols[1], cols[2])) * times
+    add_r <- sum(between(row_add, rows[1], rows[2])) * times
+    add_c <- sum(between(col_add, cols[1], cols[2])) * times
     
     
     d <- sum(abs(st - ed)) + add_r + add_c
