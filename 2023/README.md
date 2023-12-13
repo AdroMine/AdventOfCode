@@ -20,7 +20,7 @@ Day  | Readme                      | Solution                              | Pro
 10   | [Readme](./Day10/readme.md) | [Solution](./Day10/solution.R)        | Path finding, pipe maze. 
 11   | [Readme](./Day11/readme.md) | [Solution](./Day11/solution.R)        | Expanding galaxies, pair paths
 12   | [Readme](./Day12/readme.md) | [Solution](./Day12/solution.R)        | Nonogram. Possible ways. 
-13   | [Readme](./Day13/readme.md) | [Solution](./Day13/solution.R)        | 
+13   | [Readme](./Day13/readme.md) | [Solution](./Day13/solution.R)        | Line reflection in grid
 14   | [Readme](./Day14/readme.md) | [Solution](./Day14/solution.R)        | 
 15   | [Readme](./Day15/readme.md) | [Solution](./Day15/solution.R)        | 
 16   | [Readme](./Day16/readme.md) | [Solution](./Day16/solution.R)        | 
