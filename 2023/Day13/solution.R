@@ -46,9 +46,11 @@ p2 <- 0
 
 for(m in mats){
   v <- ver_refl(m, 0)
+  # h <- ver_refl(t(m), 0)
   h <- hor_refl(m, 0)
   p1 <- p1 + v + 100*h
   v <- ver_refl(m, 1)
+  # h <- ver_refl(t(m), 1) # could also use transpose
   h <- hor_refl(m, 1)
   p2 <- p2 + v + 100*h
 }
