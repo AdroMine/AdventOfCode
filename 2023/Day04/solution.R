@@ -26,11 +26,20 @@ for(i in seq_along(input)) {
     p1 <- p1 + 2^(wins-1)
     
     # Part 2
-    inc_cards <- (i+1): (i+wins)
+    inc_cards <- (i+1) : (i+wins)
     # invalid values will just create NAs
-    scratch_cards[inc_cards] <- scratch_cards[inc_cards] + (1 * scratch_cards[i])
+    scratch_cards[inc_cards] <- scratch_cards[inc_cards] + (scratch_cards[i])
   }
 }
 
 p1
 sum(scratch_cards, na.rm = TRUE)
+
+
+# Alternative Part 1
+readLines('input.txt') |> 
+  strsplit("(:|\\|) ") |> 
+  lapply(stringr::str_extract_all, "\\d+") |> 
+  lapply(\(x) length(intersect(x[[2]], x[[3]]))) |> 
+  sapply(\(x) bitwShiftL(1, x-1)) |> 
+  sum(na.rm = TRUE)
