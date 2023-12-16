@@ -23,7 +23,7 @@ Day  | Readme                      | Solution                              | Pro
 13   | [Readme](./Day13/readme.md) | [Solution](./Day13/solution.R)        | Line reflection in grid
 14   | [Readme](./Day14/readme.md) | [Solution](./Day14/solution.R)        | Tilt grid in 4 directions 1 billion times
 15   | [Readme](./Day15/readme.md) | [Solution](./Day15/solution.R)        | Hash / Hashmap
-16   | [Readme](./Day16/readme.md) | [Solution](./Day16/solution.R)        | 
+16   | [Readme](./Day16/readme.md) | [Solution](./Day16/solution.R)        | Light reflections
 17   | [Readme](./Day17/readme.md) | [Solution](./Day17/solution.R)        | 
 18   | [Readme](./Day18/readme.md) | [Solution](./Day18/solution.R)        | 
 19   | [Readme](./Day19/readme.md) | [Solution](./Day19/solution.R)        | 
