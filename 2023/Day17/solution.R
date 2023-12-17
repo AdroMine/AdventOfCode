@@ -7,33 +7,6 @@ W <- nchar(readLines(file_name, n = 1))
 input <- as.matrix(read.fwf(file_name, widths = rep(1, W), colClasses = 'integer'))
 mode(input) <- 'integer'
 
-
-# next_points <- function(curr, direction, consecutive_steps){
-#   next_pts <- list(
-#     'right' = c(0, 1, 1),  # right coordinates movement + consecutive step
-#     'left'  = c(0, -1, 1), # left
-#     'up'    = c(-1, 0, 1), # up
-#     'down'  = c(1, 0, 1) # down
-#   )
-#   nxt_pts <- switch(
-#     direction, 
-#     'right' = next_pts[-2], 
-#     'left'  = next_pts[-1], 
-#     'up'    = next_pts[-4], 
-#     'down'  = next_pts[-3]
-#   )
-#   if(consecutive_steps == 3){
-#     nxt_pts <- nxt_pts[-which(names(nxt_pts) == direction)] # can't go in same direction
-#   }
-#   
-#   # increment step taken in current direction, all else set to 1
-#   if(direction %in% names(nxt_pts)){
-#     nxt_pts[[which(names(nxt_pts) == direction)]][3] <- consecutive_steps + 1
-#   }
-#   
-#   lapply(nxt_pts, \(x) c(x[-3] + curr, x[3]))
-# }
-
 next_points <- function(curr, direction, consecutive_steps, min_steps, max_steps){
   next_pts <- list(
     'right' = c(0, 1, 1),  # right coordinates movement + consecutive step
