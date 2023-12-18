@@ -4,8 +4,13 @@ setwd(dirname(rstudioapi::getActiveDocumentContext()$path))
 file_name <- 'input.txt'
 input <- strsplit(readLines(file_name), ' ')
 
+movements <- list(
+  'R' = c(0, 1),  'D' = c(1, 0), 
+  'L' = c(0, -1), 'U' = c(-1, 0) 
+)
 
-lava_volume <- function(instructions, part2){
+# condensed function that doesn't store coordinates below
+lava_volume <- function(instructions){
   
   grid <- collections::dict()
   
@@ -13,12 +18,6 @@ lava_volume <- function(instructions, part2){
   cy <- 1
   grid$set(c(1, 1), TRUE)
   
-  movements <- list(
-    'R' = c(0, 1), 
-    'D' = c(1, 0), 
-    'L' = c(0, -1),
-    'U' = c(-1, 0) 
-  )
   perimeter_points <- 0
   
   for(line in instructions) {
@@ -48,8 +47,7 @@ lava_volume <- function(instructions, part2){
   # Pick's formula for area
   # Area = interiorN + 0.5*perimeterN - 1
   # area + 1 - 0.5*perimN = interiorN
-  if(all(c(rx, cy) != c(1,1)))
-    perimeter_points <- perimeter_points + 1
+  if(all(c(rx, cy) != c(1,1))) perimeter_points <- perimeter_points + 1
   interior_count <- area + 1 - 0.5 * perimeter_points
   total_vol <- interior_count + perimeter_points
   total_vol
@@ -57,7 +55,7 @@ lava_volume <- function(instructions, part2){
 }
 
 # Part 1
-lava_volume(input, FALSE)
+lava_volume(input)
 
 
 # Part 2
@@ -70,13 +68,33 @@ insts <- lapply(input, \(line){
 })
 
 # Part 2
-as.character(lava_volume(insts, TRUE))
+as.character(lava_volume(insts))
 
 
+# running version where we compute line by line
+greens_area <- function(instructions){
+  
+  area <- perim <- x <- 0
+  
+  for(line in instructions){
+    num <- as.integer(line[2]) 
+    mov <- movements[[line[1]]]*num # (y, x) movement
+    x <- x + mov[2]
+    # area = xdy
+    area <- area + x * mov[1]
+    perim <- perim + num
+  }
+  # pick area = interior + perim/2 - 1
+  # interior = area - perim/2 + 1
+  # reqd area = interior + perim = area - perim/2 + 1 + perim
+  # reqd area = interiod + 1 + perim/2
+  
+  area + perim %/% 2 + 1
+  
+}
 
-
-
-
+greens_area(input)
+greens_area(insts) |> as.character()
 
 
 
