@@ -26,7 +26,7 @@ Day  | Readme                      | Solution                              | Pro
 16   | [Readme](./Day16/readme.md) | [Solution](./Day16/solution.R)        | Light reflections
 17   | [Readme](./Day17/readme.md) | [Solution](./Day17/solution.R)        | Path finding with min/max steps before turn
 18   | [Readme](./Day18/readme.md) | [Solution](./Day18/solution.R)        | Lava volume (Shoelace + Pick)
-19   | [Readme](./Day19/readme.md) | [Solution](./Day19/solution.R)        | 
+19   | [Readme](./Day19/readme.md) | [Solution](./Day19/solution.R)        | Parse instructions (CFG?), determine all valid combinations
 20   | [Readme](./Day20/readme.md) | [Solution](./Day20/solution.R)        | 
 21   | [Readme](./Day21/readme.md) | [Solution](./Day21/solution.R)        | 
 22   | [Readme](./Day22/readme.md) | [Solution](./Day22/solution.R)        | 
