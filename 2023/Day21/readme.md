@@ -9,3 +9,8 @@
 See comments in solution and below diagram:
 
 <img src='diagram.png'>
+
+
+#### Different method
+
+The points form a quadratic equation. So we can either solve for the quadratic equation using linear equation solver or lagrange interpolation. 
