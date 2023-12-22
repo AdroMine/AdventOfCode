@@ -251,3 +251,8 @@ x <- solve(vandermonde, c(a1, a2, a3))
 # part 2 answer
 x[1] * n^2 + x[2]*n + x[3]
 
+
+# Or using plain old lm
+dat <- data.frame(x = 0:2, y = c(a1, a2, a3))
+m <- lm(y~I(x^2) + x, data = dat)
+predict(m, newdata = data.frame(x = n))
