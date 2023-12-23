@@ -30,7 +30,7 @@ Day  | Readme                      | Solution                              | Pro
 20   | [Readme](./Day20/readme.md) | [Solution](./Day20/solution.R)        | Gates, pulses
 21   | [Readme](./Day21/readme.md) | [Solution](./Day21/solution.R)        | Infinite grid, million steps
 22   | [Readme](./Day22/readme.md) | [Solution](./Day22/solution.R)        | Tetris - Jenga
-23   | [Readme](./Day23/readme.md) | [Solution](./Day23/solution.R)        | 
+23   | [Readme](./Day23/readme.md) | [Solution](./Day23/solution.R)        | Longest path. 
 24   | [Readme](./Day24/readme.md) | [Solution](./Day24/solution.R)        | 
 25   | [Readme](./Day25/readme.md) | [Solution](./Day25/solution.R)        | 
 
