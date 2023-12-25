@@ -5,14 +5,11 @@ options(scipen = 999) # display all digits, no scientific mode
 # file_name <- 'sample.txt'
 file_name <- 'input.txt'
 
-tbl <- read.table(file_name, sep = ":") |> 
-  tidyr::separate_longer_delim(V2, ' ') |> 
-  dplyr::filter(V2 != '')
-
 library(igraph)
-
-graph <- igraph::graph_from_data_frame(tbl, directed = FALSE) 
-
+graph <- read.table(file_name, sep = ":") |> 
+  tidyr::separate_longer_delim(V2, ' ') |> 
+  dplyr::filter(V2 != '') |> 
+  igraph::graph_from_data_frame(directed = FALSE)
 
 k <- igraph::min_cut(graph, value.only = FALSE)
 
