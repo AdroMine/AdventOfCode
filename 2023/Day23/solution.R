@@ -100,13 +100,15 @@ dfs <- function(dag, start, end, dist = 0){
   if(all(start == end)) return(max(max_dist, dist))
   
   nbrs <- dag$get(start, NULL)
-  max_dist <- 0
   
   for(nb in nbrs$keys()){
-    if(visited$has(nb)) next
-    visited$set(nb, TRUE)
+    # if(visited$has(nb)) next
+    if(visited[nb[1], nb[2]]) next
+    # visited$set(nb, TRUE)
+    visited[nb[1], nb[2]] <<- TRUE
     max_dist <- max(max_dist, Recall(dag, nb, end, dist + nbrs$get(nb, 0)))
-    visited$remove(nb)
+    # visited$remove(nb)
+    visited[nb[1], nb[2]] <<- FALSE
   }
   max_dist
 }
@@ -115,13 +117,14 @@ dfs <- function(dag, start, end, dist = 0){
 solver <- function(input, start, end, part1 = TRUE){
   dag <- graph_to_dag(input, part1)
   dag <- edge_contraction(dag)
-  visited <- collections::dict()
-  visited$clear()
   dfs(dag, start, end)
 }
 
+# visited <- collections::dict()
+visited <- matrix(FALSE, R, C)
 solver(input, start, end, TRUE)
-solver(input, start, end, FALSE)
+# visited$clear()
+res <- solver(input, start, end, FALSE)
 
 
 
