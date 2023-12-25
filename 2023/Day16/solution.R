@@ -1,10 +1,9 @@
 setwd(dirname(rstudioapi::getActiveDocumentContext()$path))
 
-# file_name <- 'sampl2.txt'
+# file_name <- 'sample.txt'
 file_name <- 'input.txt'
 W <- nchar(readLines(file_name, n = 1))
-input <- as.matrix(read.fwf(file_name, widths = rep(1, W)))
-mat <- input
+mat <- as.matrix(read.fwf(file_name, widths = rep(1, W)))
 
 movements <- list(
   'r' = c(0, 1), 
@@ -13,12 +12,13 @@ movements <- list(
   'd' = c(1, 0)
 )
 opposite_dir <- list('r' = 'l', 'u' = 'd', 'd' = 'u', 'l' = 'r')
+
 # reflectors coordinates
-reflector_coords <- which(input != '.', arr.ind = TRUE) |> apply(1, paste0, collapse = ':')
+reflector_coords <- which(mat != '.', arr.ind = TRUE) |> apply(1, paste0, collapse = ':')
 
 lava_energy <- function(start, dir){
   
-  energised <- matrix(0L, nrow = nrow(input), ncol = ncol(input))
+  energised <- matrix(0L, nrow = nrow(mat), ncol = ncol(mat))
   # have we visited this reflector while coming from the same direction before?
   visited <- setNames(vector('list', length(reflector_coords)), reflector_coords)
   
@@ -49,7 +49,6 @@ lava_energy <- function(start, dir){
           if(nxt_char == '-' && dir %in% c('u', 'd')){
             visited[[id]] <<- c(visited[[id]], opposite_dir[[dir]]) 
           }
-          
         }
       }
       
@@ -58,17 +57,9 @@ lava_energy <- function(start, dir){
       if(nxt_char == '.') {
         next
       } else if(nxt_char == '\\') {
-        dir <- switch(dir, 
-                      'r' = 'd', 
-                      'l' = 'u', 
-                      'u' = 'l', 
-                      'd' = 'r')
+        dir <- switch(dir, 'r' = 'd', 'l' = 'u', 'u' = 'l', 'd' = 'r')
       } else if (nxt_char == '/') {
-        dir <- switch(dir, 
-                      'r' = 'u', 
-                      'l' = 'd', 
-                      'u' = 'r', 
-                      'd' = 'l')
+        dir <- switch(dir, 'r' = 'u', 'l' = 'd', 'u' = 'r', 'd' = 'l')
       } else if (nxt_char == '-' && dir %in% c('l', 'r')) {
         dir <- dir
       } else if (nxt_char == '|' && dir %in% c('u', 'd')) {
@@ -99,8 +90,8 @@ lava_energy(c(1,0), 'r')
 
 # Part 2
 
-R <- nrow(input)
-C <- ncol(input)
+R <- nrow(mat)
+C <- ncol(mat)
 p2 <- 0
 for(i in 1:R){
   print(i)
