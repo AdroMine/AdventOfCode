@@ -9,7 +9,7 @@ Repo containing my solutions for Advent of Code 2024 [URL](https://adventofcode.
 Day  | Readme                      | Solution                              | Problem summary
 :--- | :-------                    | :-----------------------------------: | :---------------
 01   | [Readme](./Day01/readme.md) | [Solution](./Day01/solution.R)        | Sort lists, find matches, sum
-02   | [Readme](./Day02/readme.md) | [Solution](./Day02/solution.R)        | 
+02   | [Readme](./Day02/readme.md) | [Solution](./Day02/solution.R)        | Consecutive differences
 03   | [Readme](./Day03/readme.md) | [Solution](./Day03/solution.R)        | 
 04   | [Readme](./Day04/readme.md) | [Solution](./Day04/solution.R)        | 
 05   | [Readme](./Day05/readme.md) | [Solution](./Day05/solution.R)        | 
