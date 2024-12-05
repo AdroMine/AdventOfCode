@@ -12,8 +12,7 @@ C <- ncol(input)
 p1 <- 0
 
 check <- function(arr){
-  word <- paste0(arr, collapse = '')
-  word == 'XMAS' 
+  paste0(arr, collapse = '') == 'XMAS'
 }
 
 for(i in 1:R){
@@ -94,3 +93,4 @@ for(i in 1:R){
 }
 
 p2
+
