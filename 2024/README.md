@@ -12,8 +12,8 @@ Day  | Readme                      | Solution                              | Pro
 02   | [Readme](./Day02/readme.md) | [Solution](./Day02/solution.R)        | Consecutive differences
 03   | [Readme](./Day03/readme.md) | [Solution](./Day03/solution.R)        | Regex multiply operations enable/disable
 04   | [Readme](./Day04/readme.md) | [Solution](./Day04/solution.R)        | Search for XMAS & X-MAS
-05   | [Readme](./Day05/readme.md) | [Solution](./Day05/solution.R)        | 
-06   | [Readme](./Day06/readme.md) | [Solution](./Day06/solution.R)        | 
+05   | [Readme](./Day05/readme.md) | [Solution](./Day05/solution.R)        | Custom sorting
+06   | [Readme](./Day06/readme.md) | [Solution](./Day06/solution.R)        | Grid loop detection
 07   | [Readme](./Day07/readme.md) | [Solution](./Day07/solution.R)        | 
 08   | [Readme](./Day08/readme.md) | [Solution](./Day08/solution.R)        | 
 09   | [Readme](./Day09/readme.md) | [Solution](./Day09/solution.R)        | 
