@@ -9,3 +9,10 @@
 Generate permutations and check one by one. If found success, stop at that permutation, no need to check all. 
 
 For part2, generate permutations with all 3 operations but only check ones with the concatenation operation (we have already checked the ones without). 
+
+#### Optimised appraoch
+
+Rather than checking forward with all permutations, instead check from reverse. Is the target divisible by the last number? Has the same digits as the last number (concatenation)?
+Addition always works. If yes, then continue down that chain until we reach the end to see if the target is approachable using these numbers. 
+
+Works instantaneously. 
