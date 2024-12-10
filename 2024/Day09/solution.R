@@ -44,8 +44,70 @@ checksum <- function(blocks){
 
 checksum(part1_move(disk_blocks))
 
-# Part 2
 
+# Part 2
+part2_move_opt <- function(input){
+  input <- as.numeric(input)
+  blocks <- vector('list', length = ceiling(length(input) / 2))
+  free   <- vector('list', length = floor(length(input) / 2))
+  b <- f <- p <- 1
+  file_id <- 0
+  
+  for(i in seq_along(input)) {
+    
+    if(i %% 2 == 0){
+      free[[f]] <- c(p, input[i])
+      f <- f + 1
+    } else {
+      blocks[[b]] <- c(p, input[i], file_id) 
+      file_id <- file_id + 1
+      b <- b + 1
+    }
+    p <- p + input[i]
+  }
+  
+  final <- disk_blocks
+  
+  for(right in length(blocks):1){
+    # if(right %% 1000 == 0) print(right)
+    
+    cur_block  <- blocks[[right]]
+    b_pos      <- cur_block[1]
+    block_size <- cur_block[2]
+    file_id    <- cur_block[3]
+    
+    for(sp_idx in 1:length(free)){
+      
+      space  <- free[[sp_idx]]
+      f_pos  <- space[1]
+      f_size <- space[2]
+      
+      if(f_size >= block_size && b_pos > f_pos){
+        final[b_pos:(b_pos + block_size - 1)] <- '.'
+        final[f_pos:(f_pos + block_size - 1)] <- file_id
+        free[[sp_idx]] <- c(f_pos + block_size, f_size - block_size)
+        break
+      }
+    }
+  }
+  final
+}
+
+checksum(part2_move_opt(input))
+
+
+
+
+
+
+
+
+
+
+
+
+
+# old slow solution
 part2_move <- function(disk_blocks){
   # move disks
   # left <- Position(\(x) x == '.', x = disk_blocks) 
@@ -90,45 +152,5 @@ part2_move <- function(disk_blocks){
   }
   disk_blocks
 }
-    
 checksum(part2_move(disk_blocks))
 
-
-part2_move <- function(input){
-  input <- as.numeric(input)
-  blocks <- input[seq(1, length(input), by = 2)]
-  free_s <- input[seq(2, length(input), by = 2)]
-  
-  right <- length(blocks)
-  # look at one block at a time
-  while(right > 1){
-    block_size <- blocks[right]
-    # first available free space
-    first_free <- Position(\(x) x >= block_size, free_s, nomatch = 0)
-    if(first_free == 0) {
-      right <- right - 1
-      next
-    } else {
-      free_s[first_free] <- free_s[first_free] - block_size
-      free_s[right] <- free_s[right] + block_size
-      if(right < length(blocks)){
-        blocks <- c(
-          blocks[1:(first_free)],                # till free space
-          blocks[right],                         # the block that moved
-          blocks[(first_free + 1): (right - 1)], # everything until the block
-          blocks[(right+1):length(blocks)]       # everything after the block
-        )
-      } else {
-        blocks <- c(
-          blocks[1:(first_free)],                # till free space
-          blocks[right],                         # the block that moved
-          blocks[(first_free + 1): (right - 1)] # everything until the block
-        )
-      }
-    }
-  }
-  
-  
-  
-  
-}
