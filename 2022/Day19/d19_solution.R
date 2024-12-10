@@ -9,8 +9,8 @@ blueprints <- lapply(input, function(line) as.integer(
 
 # id ore_robot_cost, clay_robot_cost, (obsidian_r_cost 1, 2), (geode_r_cost 1, 2)
 next_states <- function(bp, state){
-    bp <- as.integer(bp)
-    statez <- as.integer(state)
+    # bp <- as.integer(bp)
+    # statez <- as.integer(state)
     
     o1 <- state[1]; o2 <- state[2]; o3 <- state[3]; o4 <- state[4];
     r1 <- state[5]; r2 <- state[6]; r3 <- state[7]; r4 <- state[8]

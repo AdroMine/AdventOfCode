@@ -139,35 +139,42 @@ wind_forecast <- function(time){
             dir %in% c('v', '^'), col
         )
     )
-    winds2
+    
+    # winds2
+    
+    complex(real = winds2$row, imaginary = winds2$col)
+    # sort(complex(real = winds2$row, imaginary = winds2$col))
+    
     
 }
 
 winds_predicted <- lapply(1:2000, \(i){
     print(i)
-    wind_forecast(i)[,-3]
+    wind_forecast(i)
 })
 
 bfs2 <- function(start){
     
     Q    <- collections::queue()
     seen <- collections::dict()
+    st <- complex(real =start[1], imaginary = start[2])
     
-    Q$push(list(start, 0))
+    Q$push(list(st, 0))
+    dirs <- c(0 + 0i, 0 + 1i, 0 - 1i, 1 + 0i, -1 + 0i)
     
     while(Q$size() > 0){
         
         if(seen$size() %% 1000 == 0) print(seen$size())
         
         item    <- Q$pop()
-        cur_pos <- as.integer(item[[1]])
+        cur_pos <- item[[1]]
         tm      <- item[[2]]
         
-        if(cur_pos[1] < 1 || cur_pos[1] > R || 
-           cur_pos[2] < 1 || cur_pos[2] > C || 
-           input[cur_pos[1], cur_pos[2]] == '#') next
+        if(Re(cur_pos) < 1 || Re(cur_pos) > R || 
+           Im(cur_pos) < 1 || Im(cur_pos) > C || 
+           input[Re(cur_pos), Im(cur_pos)] == '#') next
         
-        if(cur_pos[1] == R){
+        if(Re(cur_pos) == R){
             print(tm)
             break
         }
@@ -179,17 +186,15 @@ bfs2 <- function(start){
         nxt_wind <- winds_predicted[[tm + 1]]
         # we could also try using anti-join here
         # that should be fast
-        possibs <- as.data.frame(do.call(rbind, 
-                           c(
-                               list(cur_pos), 
-                               lapply(movements, \(m) m + cur_pos)
-                           )))
-        row.names(possibs) <- NULL
-        colnames(possibs) <- c("row", "col")
-        possibs <- dplyr::anti_join(possibs, nxt_wind, by =c('row','col'))
         
-        for(i in seq_len(nrow(possibs))){
-            Q$push(list(possibs[i,], tm + 1))
+        possibs <- cur_pos + dirs
+        idx <- match(possibs, nxt_wind, nomatch = 0L)
+        possibs <- possibs[-c(idx, 6L)]
+        # possibs <- setdiff(possibs, nxt_wind)
+        
+        
+        for(p in possibs){
+            Q$push(list(p, tm + 1))
         }
     }
     tm

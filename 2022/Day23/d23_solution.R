@@ -68,7 +68,6 @@ directions <- list(
     E = c('E', 'NE', 'SE')
 )
 
-rounds <- 10
 rnd <- 0L
 while(TRUE){
 # for(rnd in seq_len(21)){
@@ -79,7 +78,8 @@ while(TRUE){
         
         pt <- elves[[i]]
         nbrs <- get_nbrs(pt)
-        if(!any(nbrs %fin% elves)){
+        common <- setNames(nbrs %fin% elves, names(nbrs))
+        if(!any(common)){
             # no other elves, do nothing, current point remains
             pt
         } else {
@@ -87,15 +87,14 @@ while(TRUE){
             
             dirs <- (rnd:(rnd + 3) - 1) %% 4 + 1
             movs <- names(directions)[dirs]
-            if (!any(nbrs[directions[[dirs[1]]]] %fin% elves)){
+            if (!any(common[directions[[dirs[1]]]])){
                 nbrs[[movs[1]]]
-            } else if (!any(nbrs[directions[[dirs[2]]]] %fin% elves)){
+            } else if (!any(common[directions[[dirs[2]]]])){
                 nbrs[[movs[2]]]
-            } else if (!any(nbrs[directions[[dirs[3]]]] %fin% elves)){
+            } else if (!any(common[directions[[dirs[3]]]])){
                 nbrs[[movs[3]]]
-            } else if (!any(nbrs[directions[[dirs[4]]]] %fin% elves)){
+            } else if (!any(common[directions[[dirs[4]]]])){
                 nbrs[[movs[4]]]
-                
             } else {
                 pt # can't move anywhere, so stay
             }
@@ -118,3 +117,58 @@ while(TRUE){
 
 rnd 
 
+
+
+# Second style using hashtab 
+# only slightly faster
+
+h <- hashtab(size = length(elves))
+for(e in elves) sethash(h, e, TRUE)
+
+rnd <- 0L
+while(TRUE){
+# for(rnd in seq_len(21)){
+    
+    rnd <- rnd + 1L
+    cat('Round', rnd, '\n')
+    new_elves <- lapply(seq_along(elves), function(i){
+        
+        pt <- elves[[i]]
+        nbrs <- get_nbrs(pt)
+        common <- vapply(nbrs, \(x) gethash(h, x, FALSE), TRUE) # this is the main bottleneck
+        if(!any(common)){
+            pt  # no other elves, don't move
+        } else {
+            # elves are present, move acc to below
+            dirs <- (rnd:(rnd + 3) - 1) %% 4 + 1
+            movs <- names(directions)[dirs]
+
+            if (!any(common[directions[[dirs[1]]]])){
+                nbrs[[movs[1]]]
+            } else if (!any(common[directions[[dirs[2]]]])){
+                nbrs[[movs[2]]]
+            } else if (!any(common[directions[[dirs[3]]]])){
+                nbrs[[movs[3]]]
+            } else if (!any(common[directions[[dirs[4]]]])){
+                nbrs[[movs[4]]]
+            } else {
+                pt # can't move anywhere, so stay
+            }
+        }
+    })
+    
+    new_elves <- unlist(new_elves)
+    if(identical(unlist(elves), new_elves)) break
+    
+    # deal with duplicate movements
+    for(i in which(duplicated(new_elves))){
+        dups <- which(new_elves[i] == new_elves)
+        new_elves[dups] <- unlist(elves[dups])
+    }
+    elves <- as.list(new_elves)
+    if(rnd == 10){
+        print(empty_count(new_elves))
+    }
+    clrhash(h)
+    for(e in elves) sethash(h, e, TRUE)
+}
