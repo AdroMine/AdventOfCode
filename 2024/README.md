@@ -19,7 +19,7 @@ Day  | Readme                      | Solution                              | Pro
 09   | [Readme](./Day09/readme.md) | [Solution](./Day09/solution.R)        | Disk Defragment
 10   | [Readme](./Day10/readme.md) | [Solution](./Day10/solution.R)        | Path finding, distinct paths. BFS
 11   | [Readme](./Day11/readme.md) | [Solution](./Day11/solution.R)        | Stone blinking (recursive memoisation)
-12   | [Readme](./Day12/readme.md) | [Solution](./Day12/solution.R)        | 
+12   | [Readme](./Day12/readme.md) | [Solution](./Day12/solution.R)        | Garden (perimeter, area, sides of polygon)
 13   | [Readme](./Day13/readme.md) | [Solution](./Day13/solution.R)        | 
 14   | [Readme](./Day14/readme.md) | [Solution](./Day14/solution.R)        | 
 15   | [Readme](./Day15/readme.md) | [Solution](./Day15/solution.R)        | 
