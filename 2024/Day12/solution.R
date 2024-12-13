@@ -130,4 +130,3 @@ for(char in regions){
 p1
 p2
 
- # Part 2
