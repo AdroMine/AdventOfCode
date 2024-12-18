@@ -22,10 +22,10 @@ Day  | Readme                      | Solution                              | Pro
 12   | [Readme](./Day12/readme.md) | [Solution](./Day12/solution.R)        | Garden (perimeter, area, sides of polygon)
 13   | [Readme](./Day13/readme.md) | [Solution](./Day13/solution.R)        | Linear Equations
 14   | [Readme](./Day14/readme.md) | [Solution](./Day14/solution.R)        | 2D Grid robots, form tree
-15   | [Readme](./Day15/readme.md) | [Solution](./Day15/solution.R)        | 
-16   | [Readme](./Day16/readme.md) | [Solution](./Day16/solution.R)        | 
-17   | [Readme](./Day17/readme.md) | [Solution](./Day17/solution.R)        | 
-18   | [Readme](./Day18/readme.md) | [Solution](./Day18/solution.R)        | 
+15   | [Readme](./Day15/readme.md) | [Solution](./Day15/solution.R)        | Robot big boxes
+16   | [Readme](./Day16/readme.md) | [Solution](./Day16/solution.R)        | Maze all shortest paths
+17   | [Readme](./Day17/readme.md) | [Solution](./Day17/solution.R)        | Reverse engineer input to get original program back
+18   | [Readme](./Day18/readme.md) | [Solution](./Day18/solution.R)        | Shortest path + at what step does it become impossible to pass
 19   | [Readme](./Day19/readme.md) | [Solution](./Day19/solution.R)        | 
 20   | [Readme](./Day20/readme.md) | [Solution](./Day20/solution.R)        | 
 21   | [Readme](./Day21/readme.md) | [Solution](./Day21/solution.R)        | 
