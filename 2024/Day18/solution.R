@@ -77,6 +77,40 @@ grid <- create_grid(input, 71, 71, 1024)
 
 shortest_path(grid, 71, 71)
 
+# Part 2, use binary search to find step
+path_at_step_i <- function(step){
+  grid <- create_grid(input, R, C, step)
+  shortest_path(grid, R, C)[[2]]
+}
+
+bin_search <- function(low, high){
+  
+  mid <- (low + high) %/% 2
+  res_mid <- path_at_step_i(mid)
+  res_low <- path_at_step_i(low)
+  res_high <- path_at_step_i(high)
+  if(low > high){
+    return(-1)
+  }
+  if(res_low & !res_mid){
+    return(bin_search(low, mid))
+  } else if(res_low & res_mid){
+    return(bin_search(mid + 1, high))
+  } else if(!res_low & !res_mid){
+    return(low)
+  }
+}
+
+i <- bin_search(1024, length(input))
+
+print(paste0(input[[i]] - 1, collapse = ","))
+
+
+
+
+
+
+# Slow full brute force
 for(i in 1025:length(input)){
   print(i)
   
