@@ -47,7 +47,6 @@ get_distances <- function(grid){
 }
 
 orig_distances <- get_distances(input)
-
 path_points <- which(!is.infinite(orig_distances), arr.ind = TRUE)
 
 
@@ -57,7 +56,9 @@ df <- data.frame(path_points, dist = orig_distances[path_points]) |> as_tibble()
 
 computed <- dplyr::cross_join(df, df) |> 
   dplyr::mutate(apart = abs(row.x - row.y) + abs(col.x - col.y)) |> 
-  dplyr::mutate(saved = dist.y - dist.x - apart) 
+  dplyr::filter(apart > 0) |> # remove same point combinations
+  dplyr::mutate(saved = dist.y - dist.x - apart) |> 
+  dplyr::select(apart, saved) # save memory
 
 # part 1
 computed |> 
@@ -68,6 +69,33 @@ computed |>
 computed |> 
   dplyr::filter(apart <= 20, saved >= 100) |> 
   nrow()
+
+
+
+# Use duckdb to avoid using as much memory as above method 
+
+library(duckdb)
+library(dbplyr)
+
+con <- duckdb::dbConnect(duckdb::duckdb())
+dbWriteTable(con, "df", df)
+
+computed2 <- tbl(con, "df") |> 
+  dplyr::cross_join(tbl(con, "df")) |> 
+  dplyr::mutate(apart = abs(row.x - row.y) + abs(col.x - col.y)) |> 
+  dplyr::filter(apart > 0) |> # remove same point combinations
+  dplyr::mutate(saved = dist.y - dist.x - apart) |> 
+  dplyr::select(apart, saved) # save memory
+  
+# part 1
+computed2 |> 
+  dplyr::filter(apart == 2, saved >= 100) |> 
+  count()
+
+# Part 2
+computed2 |> 
+  dplyr::filter(apart <= 20, saved >= 100) |> 
+  count()
 
 
 
@@ -101,5 +129,4 @@ for(i in 1:ncol(combinations)){
 
 p1
 p2
-
 
