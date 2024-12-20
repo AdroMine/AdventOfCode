@@ -27,7 +27,7 @@ Day  | Readme                      | Solution                              | Pro
 17   | [Readme](./Day17/readme.md) | [Solution](./Day17/solution.R)        | Reverse engineer input to get original program back
 18   | [Readme](./Day18/readme.md) | [Solution](./Day18/solution.R)        | Shortest path + at what step does it become impossible to pass
 19   | [Readme](./Day19/readme.md) | [Solution](./Day19/solution.R)        | Blocks and possible patterns (recursive DP)
-20   | [Readme](./Day20/readme.md) | [Solution](./Day20/solution.R)        | 
+20   | [Readme](./Day20/readme.md) | [Solution](./Day20/solution.R)        | Race, cheating allowed (skip blocks)
 21   | [Readme](./Day21/readme.md) | [Solution](./Day21/solution.R)        | 
 22   | [Readme](./Day22/readme.md) | [Solution](./Day22/solution.R)        | 
 23   | [Readme](./Day23/readme.md) | [Solution](./Day23/solution.R)        | 
