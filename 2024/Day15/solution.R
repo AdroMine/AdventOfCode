@@ -18,93 +18,107 @@ dirs <- list(
   '<' = c(0, -1)
 )
 
-move_one_step <- function(inst, pos, grid){
-  
-  dir <- dirs[[inst]]
-  
-  new_loc <- pos + dir
-  if(grid[new_loc[1], new_loc[2]] == '#'){
-    return(list(pos, grid))
-  } else if(grid[new_loc[1], new_loc[2]] == 'O'){
-    stone_loc <- new_loc
-    while(grid[stone_loc[1], stone_loc[2]] == "O"){
-      stone_loc <- stone_loc + dir
+
+enlarge_grid <- function(grid){
+  part2_grid <- matrix('.', nrow = nrow(grid), ncol = ncol(grid) * 2)
+  for(row in seq_len(nrow(grid))){
+    for(col in seq_len(ncol(grid))){
+      
+      item <- switch(
+        grid[row, col], 
+        '#' = c('#', '#'), 
+        'O' = c('[', ']'), 
+        '.' = c('.', '.'), 
+        '@' = c('@', '.')
+      )
+      
+      part2_grid[row, 2*col - 1] <- item[1]
+      part2_grid[row, 2*col    ] <- item[2]
+      
     }
-    if(grid[stone_loc[1], stone_loc[2]] == '#'){
-      return(list(pos, grid))
-    } else {
-      grid[stone_loc[1], stone_loc[2]] <- 'O'
+  }
+  
+  part2_grid
+}
+
+move_robots <- function(grid, part2 = FALSE){
+  if(part2) grid <- enlarge_grid(grid)
+  
+  robot_loc <- which(grid == '@', arr.ind = TRUE)[1,]
+  pos <- robot_loc
+  
+  for(i in seq_along(instructions)){
+    inst <- instructions[i]
+    
+    dir     <- dirs[[inst]]
+    new_loc <- pos + dir
+    
+    if(grid[new_loc[1], new_loc[2]] == '#'){
+      next
+    } else if(grid[new_loc[1], new_loc[2]] == '.'){
       grid[new_loc[1], new_loc[2]] <- "@"
       grid[pos[1], pos[2]] <- "."
-      return(list(new_loc, grid))
+      pos <- new_loc
+      next
+    } else if(grid[new_loc[1], new_loc[2]] %in% c("[", "]","O")){
+      
+      Q <- collections::queue(list(pos))
+      seen <- collections::dict()
+      ok <- TRUE
+      
+      # check all the blocks affected by current push
+      while(Q$size() > 0){
+        
+        cpos <- Q$pop()
+        
+        if(seen$has(cpos)) next
+        seen$set(cpos, TRUE)
+        
+        npos <- cpos + dir
+        # if wall ahead, we can't move anything
+        if(grid[npos[1], npos[2]] == '#'){
+          ok <- FALSE
+          break
+        }
+        if(grid[npos[1], npos[2]] == 'O'){
+          Q$push(npos)
+        }
+        if(grid[npos[1], npos[2]] == '['){
+          Q$push(npos)
+          Q$push(npos + c(0,1))
+        }
+        if(grid[npos[1], npos[2]] == ']'){
+          Q$push(npos)
+          Q$push(npos + c(0,-1))
+        }
+      }
+      if(!ok) next
+      
+      while(seen$size() > 0){
+        
+        for(sk in seen$keys()){
+          
+          npos <- sk + dir
+          if(!seen$has(npos)){
+            stopifnot("ohho" = grid[npos[1], npos[2]] == '.')
+            grid[npos[1], npos[2]] <- grid[sk[1], sk[2]]
+            grid[sk[1], sk[2]] <- "."
+            seen$remove(sk)
+          }
+        }
+      }
+      # pos <- new_loc
+      pos <- pos + dir
     }
-  } else if(grid[new_loc[1], new_loc[2]] == '.'){
-    grid[new_loc[1], new_loc[2]] <- "@"
-    grid[pos[1], pos[2]] <- "."
-    return(list(new_loc, grid))
   }
-}
-
-new_grid <- grid
-robot_loc <- which(grid == '@', arr.ind = TRUE)[1,]
-for(i in seq_along(instructions)){
-  inst <- instructions[i]
+  # print(grid)
   
-  res <- move_one_step(inst, robot_loc, new_grid)
-  new_grid <- res[[2]]
-  robot_loc <- res[[1]]
+  char <- if(part2) "[" else "O"
+  box_locations <- which(grid == char, arr.ind = TRUE)
+  sum((box_locations[,1] - 1) * 100 + (box_locations[,2] - 1))
+  
   
 }
 
-box_locations <- which(new_grid == "O", arr.ind = TRUE)
-sum((box_locations[,1] - 1) * 100 + (box_locations[,2] - 1))
-
-
-
-
-part2_grid <- matrix('.', nrow = nrow(grid), ncol = ncol(grid) * 2)
-for(row in seq_len(nrow(grid))){
-  for(col in seq_len(ncol(grid))){
-    
-    item <- switch(
-      grid[row, col], 
-      '#' = c('#', '#'), 
-      'O' = c('[', ']'), 
-      '.' = c('.', '.'), 
-      '@' = c('@', '.')
-    )
-    
-    part2_grid[row, 2*col - 1] <- item[1]
-    part2_grid[row, 2*col    ] <- item[2]
-    
-  }
-}
-
-part2_grid
-
-move_one_step_part_2 <- function(inst, pos, grid){
-  
-  dir <- dirs[[inst]]
-  
-  new_loc <- pos + dir
-  if(grid[new_loc[1], new_loc[2]] == '#'){
-    return(list(pos, grid))
-  } else if(grid[new_loc[1], new_loc[2]] == 'O'){
-    stone_loc <- new_loc
-    while(grid[stone_loc[1], stone_loc[2]] == "O"){
-      stone_loc <- stone_loc + dir
-    }
-    if(grid[stone_loc[1], stone_loc[2]] == '#'){
-      return(list(pos, grid))
-    } else {
-      grid[stone_loc[1], stone_loc[2]] <- 'O'
-      grid[new_loc[1], new_loc[2]] <- "@"
-      grid[pos[1], pos[2]] <- "."
-      return(list(new_loc, grid))
-    }
-  } else if(grid[new_loc[1], new_loc[2]] == '.'){
-    grid[new_loc[1], new_loc[2]] <- "@"
-    grid[pos[1], pos[2]] <- "."
-    return(list(new_loc, grid))
-  }
-}
+move_robots(grid, FALSE)
+move_robots(grid, TRUE)
