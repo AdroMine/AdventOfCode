@@ -32,5 +32,5 @@ Day  | Readme                      | Solution                              | Pro
 22   | [Readme](./Day22/readme.md) | [Solution](./Day22/solution.R)        | Buy bananas at monkey shops (bit operations and find changes patterns)
 23   | [Readme](./Day23/readme.md) | [Solution](./Day23/solution.R)        | Graph, sub-graph of size 3 + maximal clique
 24   | [Readme](./Day24/readme.md) | [Solution](./Day24/solution.R)        | 45 bit ripple carry adder
-25   | [Readme](./Day25/readme.md) | [Solution](./Day25/solution.R)        | 
+25   | [Readme](./Day25/readme.md) | [Solution](./Day25/solution.R)        | Locks and Keys 
 
